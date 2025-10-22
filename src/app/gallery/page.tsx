@@ -74,7 +74,9 @@ const renderImage: RenderImage<GalleryPhoto> = (
 ) => (
   <Image
     {...props}
-    loading={_loading}
+    loading="eager"
+    decoding="async"
+    priority
     src={photo.src}
     alt={alt || photo.alt}
     title={title}
@@ -153,6 +155,27 @@ export default function GalleryPage() {
     };
   }, []);
 
+  useEffect(() => {
+    if (typeof window === 'undefined') {
+      return;
+    }
+
+    const preloaders = PHOTOS.map((photo) => {
+      const img = new window.Image();
+      img.decoding = 'async';
+      img.loading = 'eager';
+      img.src = photo.src;
+      return img;
+    });
+
+    return () => {
+      preloaders.forEach((img) => {
+        img.onload = null;
+        img.onerror = null;
+      });
+    };
+  }, []);
+
   const photos = useMemo(() => PHOTOS, []);
   const isRowsLayout = layoutVariant === 'rows';
 
@@ -209,6 +232,8 @@ export default function GalleryPage() {
                     src={photo.src}
                     alt={photo.alt}
                     fill
+                    loading="eager"
+                    decoding="async"
                     className="absolute inset-0 h-full w-full object-cover"
                     sizes="(min-width: 640px) 50vw, 92vw"
                   />
