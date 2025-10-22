@@ -3,7 +3,6 @@
 import { RenderImage, RenderWrapper, RowsPhotoAlbum } from 'react-photo-album';
 import React, { useEffect, useMemo, useState } from 'react';
 import Image from 'next/image';
-import 'react-photo-album/rows.css';
 
 type GalleryPhoto = {
   src: string;
@@ -14,55 +13,55 @@ type GalleryPhoto = {
 
 const PHOTOS: GalleryPhoto[] = [
   {
-    src: '/gallery/image-1.jpg',
+    src: '/image-1.jpg',
     width: 4000,
     height: 3000,
     alt: 'Esküvői desszertasztal vintage hangulatban',
   },
   {
-    src: '/gallery/image-2.jpg',
+    src: '/image-2.jpg',
     width: 3525,
     height: 3000,
     alt: 'Friss gyümölcsös tarte válogatás',
   },
   {
-    src: '/gallery/image-3.jpg',
+    src: '/image-3.jpg',
     width: 4000,
     height: 3000,
     alt: 'Csokoládés szeletek karamell öntettel',
   },
   {
-    src: '/gallery/image-4.jpg',
+    src: '/image-4.jpg',
     width: 4000,
     height: 3000,
     alt: 'Esküvői torta vadvirág díszekkel',
   },
   {
-    src: '/gallery/image-5.jpg',
+    src: '/image-5.jpg',
     width: 3000,
     height: 4000,
     alt: 'Desszertasztal arany részletekkel',
   },
   {
-    src: '/gallery/image-6.jpg',
+    src: '/image-6.jpg',
     width: 4000,
     height: 3000,
     alt: 'Sós aprósütemények ünnepi tálalásban',
   },
   {
-    src: '/gallery/image-7.jpg',
+    src: '/image-7.jpg',
     width: 3000,
     height: 3128,
     alt: 'Kávé mellé kínált süteményválogatás',
   },
   {
-    src: '/gallery/image-8.jpg',
+    src: '/image-8.jpg',
     width: 4000,
     height: 3000,
     alt: 'Candy bar rózsaszín részletekkel',
   },
   {
-    src: '/gallery/image-9.jpg',
+    src: '/image-9.jpg',
     width: 3000,
     height: 4000,
     alt: 'Barátfüle sütemények fa tálon',
@@ -82,14 +81,8 @@ const renderImage: RenderImage<GalleryPhoto> = (
     width={photo.width}
     height={photo.height}
     sizes={sizes ?? '(min-width: 1024px) 45vw, 90vw'}
-    className={`h-full w-full object-cover ${className ?? ''}`}
-    style={{
-      ...style,
-      width: '100%',
-      height: '100%',
-      objectFit: 'cover',
-      borderRadius: '2.5rem',
-    }}
+    className={`w-full h-auto object-cover rounded-2xl ${className ?? ''}`}
+    style={{ ...style }}
   />
 );
 
@@ -110,12 +103,7 @@ const renderWrapper: RenderWrapper<GalleryPhoto> = (
 
 export default function GalleryPage() {
   const [activeImage, setActiveImage] = useState<GalleryPhoto | null>(null);
-  const [isDesktopLayout, setIsDesktopLayout] = useState<boolean>(() => {
-    if (typeof window === 'undefined' || !window.matchMedia) {
-      return true;
-    }
-    return window.matchMedia('(min-width: 1024px)').matches;
-  });
+  const [layoutVariant, setLayoutVariant] = useState<'rows' | 'grid'>('grid');
 
   useEffect(() => {
     if (!activeImage) {
@@ -140,8 +128,13 @@ export default function GalleryPage() {
       return;
     }
 
-    const mediaQuery = window.matchMedia('(min-width: 1024px)');
-    const updateLayout = () => setIsDesktopLayout(mediaQuery.matches);
+    const mediaQuery = window.matchMedia('(min-width: 1280px)');
+    const updateLayout = () => {
+      const supportsResizeObserver = 'ResizeObserver' in window;
+      setLayoutVariant(
+        supportsResizeObserver && mediaQuery.matches ? 'rows' : 'grid',
+      );
+    };
 
     updateLayout();
 
@@ -161,6 +154,7 @@ export default function GalleryPage() {
   }, []);
 
   const photos = useMemo(() => PHOTOS, []);
+  const isRowsLayout = layoutVariant === 'rows';
 
   return (
     <main className="bg-background text-primary-brown">
@@ -179,14 +173,14 @@ export default function GalleryPage() {
           </p>
         </div>
 
-        {isDesktopLayout ? (
+        {isRowsLayout ? (
           <RowsPhotoAlbum
             photos={photos}
             render={{ image: renderImage, wrapper: renderWrapper }}
             onClick={({ photo }) => setActiveImage(photo as GalleryPhoto)}
             spacing={20}
             targetRowHeight={320}
-            defaultContainerWidth={1200}
+            defaultContainerWidth={1024}
             sizes={{
               size: '1168px',
               sizes: [
@@ -198,24 +192,28 @@ export default function GalleryPage() {
             }}
           />
         ) : (
-          <div className="grid w-full gap-6 sm:grid-cols-2 sm:gap-7">
+          <div className="grid w-full gap-4 sm:grid-cols-2 md:gap-6 lg:grid-cols-3">
             {photos.map((photo) => (
               <button
                 key={photo.src}
                 type="button"
                 onClick={() => setActiveImage(photo)}
                 aria-label={`${photo.alt} megnyitása`}
-                className="group relative overflow-hidden rounded-[2.5rem] border border-primary-brown/10 bg-primary-brown/5 shadow-[0_30px_45px_-35px_rgba(89,51,30,0.45)] transition-transform duration-300 hover:-translate-y-1 hover:shadow-[0_35px_60px_-40px_rgba(89,51,30,0.5)] focus:outline-none focus-visible:ring-2 focus-visible:ring-primary-brown"
+                className="group block w-full transition-transform duration-300 hover:-translate-y-1 focus:outline-none focus-visible:ring-2 focus-visible:ring-primary-brown"
               >
-                <Image
-                  src={photo.src}
-                  alt={photo.alt}
-                  width={photo.width}
-                  height={photo.height}
-                  className="h-full w-full rounded-[2.5rem] object-cover"
-                  sizes="(min-width: 640px) 50vw, 92vw"
-                />
-                <span className="pointer-events-none absolute inset-0 rounded-[2.5rem] border border-transparent transition duration-300 group-hover:border-primary-brown/25" />
+                <div
+                  className="relative w-full overflow-hidden rounded-[2.5rem] border border-primary-brown/10 bg-primary-brown/5 shadow-[0_30px_45px_-35px_rgba(89,51,30,0.45)] group-hover:shadow-[0_35px_60px_-40px_rgba(89,51,30,0.5)]"
+                  style={{ aspectRatio: `${photo.width}/${photo.height}` }}
+                >
+                  <Image
+                    src={photo.src}
+                    alt={photo.alt}
+                    fill
+                    className="absolute inset-0 h-full w-full object-cover"
+                    sizes="(min-width: 640px) 50vw, 92vw"
+                  />
+                  <span className="pointer-events-none absolute inset-0 rounded-[2.5rem] border border-transparent transition duration-300 group-hover:border-primary-brown/25" />
+                </div>
               </button>
             ))}
           </div>

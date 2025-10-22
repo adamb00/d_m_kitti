@@ -2,7 +2,7 @@
 
 import {
   ArrowLeft,
-  Home,
+  Images,
   MapPin,
   MessageCircleHeart,
   Sparkles,
@@ -17,9 +17,9 @@ const HIGHLIGHTS = [
 
 const QUICK_LINKS = [
   {
-    href: '/',
-    label: 'Vissza a főoldalra',
-    icon: Home,
+    href: '/gallery',
+    label: 'Galéria megtekintése',
+    icon: Images,
   },
   {
     href: '/about-us',
