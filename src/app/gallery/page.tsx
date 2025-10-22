@@ -110,6 +110,12 @@ const renderWrapper: RenderWrapper<GalleryPhoto> = (
 
 export default function GalleryPage() {
   const [activeImage, setActiveImage] = useState<GalleryPhoto | null>(null);
+  const [isDesktopLayout, setIsDesktopLayout] = useState<boolean>(() => {
+    if (typeof window === 'undefined' || !window.matchMedia) {
+      return true;
+    }
+    return window.matchMedia('(min-width: 1024px)').matches;
+  });
 
   useEffect(() => {
     if (!activeImage) {
@@ -129,11 +135,36 @@ export default function GalleryPage() {
     };
   }, [activeImage]);
 
+  useEffect(() => {
+    if (typeof window === 'undefined' || !window.matchMedia) {
+      return;
+    }
+
+    const mediaQuery = window.matchMedia('(min-width: 1024px)');
+    const updateLayout = () => setIsDesktopLayout(mediaQuery.matches);
+
+    updateLayout();
+
+    if (typeof mediaQuery.addEventListener === 'function') {
+      mediaQuery.addEventListener('change', updateLayout);
+    } else {
+      mediaQuery.addListener(updateLayout);
+    }
+
+    return () => {
+      if (typeof mediaQuery.removeEventListener === 'function') {
+        mediaQuery.removeEventListener('change', updateLayout);
+      } else {
+        mediaQuery.removeListener(updateLayout);
+      }
+    };
+  }, []);
+
   const photos = useMemo(() => PHOTOS, []);
 
   return (
     <main className="bg-background text-primary-brown">
-      <section className="mx-auto flex w-full max-w-6xl flex-col items-center gap-8 px-6 py-12 text-center lg:gap-12 lg:py-16">
+      <section className="mx-auto flex w-full max-w-7xl flex-col items-center gap-8 px-6 py-12 text-center lg:gap-12 lg:py-16">
         <div className="flex flex-col items-center gap-4">
           <p className="text-xs font-semibold uppercase tracking-[0.4em] text-primary-brown/55 sm:text-sm">
             Galéria
@@ -148,20 +179,47 @@ export default function GalleryPage() {
           </p>
         </div>
 
-        <RowsPhotoAlbum
-          photos={photos}
-          render={{ image: renderImage, wrapper: renderWrapper }}
-          onClick={({ photo }) => setActiveImage(photo as GalleryPhoto)}
-          spacing={20}
-          targetRowHeight={320}
-          defaultContainerWidth={1200}
-          sizes={{
-            size: '1168px',
-            sizes: [
-              { viewport: '(max-width: 1200px)', size: 'calc(100vw - 32px)' },
-            ],
-          }}
-        />
+        {isDesktopLayout ? (
+          <RowsPhotoAlbum
+            photos={photos}
+            render={{ image: renderImage, wrapper: renderWrapper }}
+            onClick={({ photo }) => setActiveImage(photo as GalleryPhoto)}
+            spacing={20}
+            targetRowHeight={320}
+            defaultContainerWidth={1200}
+            sizes={{
+              size: '1168px',
+              sizes: [
+                {
+                  viewport: '(max-width: 1200px)',
+                  size: 'calc(100vw - 32px)',
+                },
+              ],
+            }}
+          />
+        ) : (
+          <div className="grid w-full gap-6 sm:grid-cols-2 sm:gap-7">
+            {photos.map((photo) => (
+              <button
+                key={photo.src}
+                type="button"
+                onClick={() => setActiveImage(photo)}
+                aria-label={`${photo.alt} megnyitása`}
+                className="group relative overflow-hidden rounded-[2.5rem] border border-primary-brown/10 bg-primary-brown/5 shadow-[0_30px_45px_-35px_rgba(89,51,30,0.45)] transition-transform duration-300 hover:-translate-y-1 hover:shadow-[0_35px_60px_-40px_rgba(89,51,30,0.5)] focus:outline-none focus-visible:ring-2 focus-visible:ring-primary-brown"
+              >
+                <Image
+                  src={photo.src}
+                  alt={photo.alt}
+                  width={photo.width}
+                  height={photo.height}
+                  className="h-full w-full rounded-[2.5rem] object-cover"
+                  sizes="(min-width: 640px) 50vw, 92vw"
+                />
+                <span className="pointer-events-none absolute inset-0 rounded-[2.5rem] border border-transparent transition duration-300 group-hover:border-primary-brown/25" />
+              </button>
+            ))}
+          </div>
+        )}
       </section>
 
       {activeImage && (
