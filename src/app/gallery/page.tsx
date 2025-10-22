@@ -1,9 +1,9 @@
 'use client';
 
 import { RenderImage, RenderWrapper, RowsPhotoAlbum } from 'react-photo-album';
+import React, { useEffect, useMemo, useState } from 'react';
 import Image from 'next/image';
 import 'react-photo-album/rows.css';
-import React, { useEffect, useMemo, useState } from 'react';
 
 type GalleryPhoto = {
   src: string;
@@ -75,6 +75,7 @@ const renderImage: RenderImage<GalleryPhoto> = (
 ) => (
   <Image
     {...props}
+    loading={_loading}
     src={photo.src}
     alt={alt || photo.alt}
     title={title}

@@ -1,7 +1,7 @@
 'use client';
 
 import { Phone } from 'lucide-react';
-import React, { useEffect, useMemo, useState } from 'react';
+import React, { useEffect, useMemo, useRef, useState } from 'react';
 import Image from 'next/image';
 import wolt_logo from '../../../public/wolt.png';
 
@@ -52,6 +52,11 @@ export default function Navigation() {
   const [isOpen, setIsOpen] = useState(false);
   const [openSubmenus, setOpenSubmenus] = useState<Record<string, boolean>>({});
   const [isScrolled, setIsScrolled] = useState(false);
+  const [activeDesktopSubmenu, setActiveDesktopSubmenu] = useState<
+    string | null
+  >(null);
+  const [isPointerCoarse, setIsPointerCoarse] = useState(false);
+  const desktopNavRef = useRef<HTMLElement | null>(null);
   const contactPhone = process.env.NEXT_PUBLIC_CONTACT_PHONE ?? '';
   const phoneHref = contactPhone.replace(/\s+/g, '');
 
@@ -128,6 +133,85 @@ export default function Navigation() {
       setOpenSubmenus({});
     }
   }, [isOpen]);
+
+  useEffect(() => {
+    if (typeof window === 'undefined' || !window.matchMedia) {
+      return;
+    }
+
+    const mediaQuery = window.matchMedia(
+      '(hover: none), (pointer: coarse)',
+    );
+    const updatePointerState = () => {
+      setIsPointerCoarse(mediaQuery.matches);
+    };
+
+    updatePointerState();
+
+    if (typeof mediaQuery.addEventListener === 'function') {
+      mediaQuery.addEventListener('change', updatePointerState);
+    } else {
+      // Fallback for older Safari versions
+      mediaQuery.addListener(updatePointerState);
+    }
+
+    return () => {
+      if (typeof mediaQuery.removeEventListener === 'function') {
+        mediaQuery.removeEventListener('change', updatePointerState);
+      } else {
+        mediaQuery.removeListener(updatePointerState);
+      }
+    };
+  }, []);
+
+  useEffect(() => {
+    if (!isPointerCoarse) {
+      setActiveDesktopSubmenu(null);
+    }
+  }, [isPointerCoarse]);
+
+  useEffect(() => {
+    if (!isPointerCoarse || !activeDesktopSubmenu) {
+      return;
+    }
+
+    const handlePointerDown = (event: PointerEvent) => {
+      if (
+        desktopNavRef.current &&
+        !desktopNavRef.current.contains(event.target as Node)
+      ) {
+        setActiveDesktopSubmenu(null);
+      }
+    };
+
+    document.addEventListener('pointerdown', handlePointerDown);
+    return () => {
+      document.removeEventListener('pointerdown', handlePointerDown);
+    };
+  }, [isPointerCoarse, activeDesktopSubmenu]);
+
+  const handleDesktopItemClick = (
+    event: React.MouseEvent<HTMLAnchorElement>,
+    item: MenuItem,
+  ) => {
+    if (!item.children?.length) {
+      setActiveDesktopSubmenu(null);
+      return;
+    }
+
+    if (!isPointerCoarse) {
+      setActiveDesktopSubmenu(null);
+      return;
+    }
+
+    if (activeDesktopSubmenu !== item.label) {
+      event.preventDefault();
+      setActiveDesktopSubmenu(item.label);
+      return;
+    }
+
+    setActiveDesktopSubmenu(null);
+  };
 
   const MobileNavigation = (
     <nav className={`${containerClasses} lg:hidden`} style={navStyle}>
@@ -309,7 +393,10 @@ export default function Navigation() {
   );
 
   const DesktopNavigation = (
-    <nav className="sticky top-0 z-30 hidden w-full border-b border-primary-brown/15 bg-background/95 backdrop-blur lg:block">
+    <nav
+      ref={desktopNavRef}
+      className="sticky top-0 z-30 hidden w-full border-b border-primary-brown/15 bg-background/95 backdrop-blur lg:block"
+    >
       <div className="mx-auto flex w-full max-w-5xl items-center justify-between gap-8 px-6 py-4 xl:max-w-6xl xl:px-8">
         <div className="flex items-center gap-6">
           {contactPhone && (
@@ -329,12 +416,17 @@ export default function Navigation() {
             const labelClasses = item.important
               ? 'text-red-500'
               : 'text-primary-brown';
+            const submenuIsActive =
+              activeDesktopSubmenu === item.label && isPointerCoarse;
 
             return (
               <li key={item.label} className="relative group">
                 {hasChildren ? (
                   <a
                     href={item.href ?? '#'}
+                    onClick={(event) => handleDesktopItemClick(event, item)}
+                    aria-haspopup="true"
+                    aria-expanded={submenuIsActive}
                     className={`inline-flex max-w-40 items-center gap-1 text-center uppercase transition-all duration-200 hover:scale-105 hover:text-primary-brown-dark focus:outline-none focus-visible:ring-2 focus-visible:ring-primary-brown ${labelClasses}`}
                   >
                     <span className="block whitespace-nowrap leading-tight">
@@ -346,7 +438,9 @@ export default function Navigation() {
                       fill="none"
                       stroke="currentColor"
                       strokeWidth="1.6"
-                      className="h-3 w-3 shrink-0 transition-transform duration-200 ease-out group-hover:rotate-180 group-focus-within:rotate-180"
+                      className={`h-3 w-3 shrink-0 transition-transform duration-200 ease-out group-hover:rotate-180 group-focus-within:rotate-180 ${
+                        submenuIsActive ? 'rotate-180' : ''
+                      }`}
                     >
                       <path
                         d="M5 8l5 5 5-5"
@@ -367,12 +461,19 @@ export default function Navigation() {
                 )}
 
                 {hasChildren && item.children && (
-                  <div className="pointer-events-none absolute left-1/2 top-full z-30 mt-1 -translate-x-1/2 opacity-0 transition-all duration-200 ease-out group-hover:pointer-events-auto group-hover:opacity-100 group-focus-within:pointer-events-auto group-focus-within:opacity-100">
-                    <div className="flex min-w-[18rem] flex-col gap-1 bg-background rounded-b-sm px-4 py-3 text-left text-[0.7rem] font-semibold uppercase tracking-[0.16em] text-primary-brown backdrop-blur">
+                  <div
+                    className={`absolute left-1/2 top-full z-30 mt-1 -translate-x-1/2 transition-all duration-200 ease-out ${
+                      submenuIsActive
+                        ? 'pointer-events-auto opacity-100'
+                        : 'pointer-events-none opacity-0'
+                    } group-hover:pointer-events-auto group-hover:opacity-100 group-focus-within:pointer-events-auto group-focus-within:opacity-100`}
+                  >
+                    <div className="flex min-w-[18rem] flex-col gap-1 rounded-b-sm bg-background px-4 py-3 text-left text-[0.7rem] font-semibold uppercase tracking-[0.16em] text-primary-brown backdrop-blur">
                       {item.children.map((child) => (
                         <a
                           key={child.label}
                           href={child.href}
+                          onClick={() => setActiveDesktopSubmenu(null)}
                           className="px-3 py-2 text-center transition-colors hover:bg-primary-brown/10 hover:text-primary-brown-dark"
                         >
                           <span className="block whitespace-nowrap leading-tight">

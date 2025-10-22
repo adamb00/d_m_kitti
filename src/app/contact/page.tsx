@@ -1,17 +1,10 @@
 'use client';
 
 import { zodResolver } from '@hookform/resolvers/zod';
-import {
-  Facebook,
-  Instagram,
-  Mail,
-  MapPin,
-  Phone,
-  Sparkles,
-} from 'lucide-react';
+import { Facebook, Instagram, Mail, Phone, Sparkles } from 'lucide-react';
 import { SubmitHandler, useForm } from 'react-hook-form';
 import { z } from 'zod';
-import React, { useState } from 'react';
+import { useState } from 'react';
 
 const CONTACT_SECTIONS = [
   {
@@ -61,9 +54,7 @@ export default function ContactPage() {
   const contactEmail = process.env.NEXT_PUBLIC_CONTACT_EMAIL ?? '';
   const phoneHref = contactPhone.replace(/\s+/g, '');
 
-  const [submitStatus, setSubmitStatus] = useState<
-    'idle' | 'success' | 'error'
-  >('idle');
+  const [_, setSubmitStatus] = useState<'idle' | 'success' | 'error'>('idle');
 
   const {
     register,

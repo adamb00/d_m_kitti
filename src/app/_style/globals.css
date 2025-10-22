@@ -1,4 +1,5 @@
 @import 'tailwindcss';
+@import 'react-photo-album/rows.css';
 
 :root {
   --background: #faf5f3;
