@@ -11,57 +11,60 @@ type GalleryPhoto = {
   alt: string;
 };
 
+const BLOB_BASE =
+  'https://zh2mkmryigduzodx.public.blob.vercel-storage.com';
+
 const PHOTOS: GalleryPhoto[] = [
   {
-    src: '/image-1.jpg',
+    src: `${BLOB_BASE}/image-1.jpg`,
     width: 4000,
     height: 3000,
     alt: 'Esküvői desszertasztal vintage hangulatban',
   },
   {
-    src: '/image-2.jpg',
+    src: `${BLOB_BASE}/image-2.jpg`,
     width: 3525,
     height: 3000,
     alt: 'Friss gyümölcsös tarte válogatás',
   },
   {
-    src: '/image-3.jpg',
+    src: `${BLOB_BASE}/image-3.jpg`,
     width: 4000,
     height: 3000,
     alt: 'Csokoládés szeletek karamell öntettel',
   },
   {
-    src: '/image-4.jpg',
+    src: `${BLOB_BASE}/image-4.jpg`,
     width: 4000,
     height: 3000,
     alt: 'Esküvői torta vadvirág díszekkel',
   },
   {
-    src: '/image-5.jpg',
+    src: `${BLOB_BASE}/image-5.jpg`,
     width: 3000,
     height: 4000,
     alt: 'Desszertasztal arany részletekkel',
   },
   {
-    src: '/image-6.jpg',
+    src: `${BLOB_BASE}/image-6.jpg`,
     width: 4000,
     height: 3000,
     alt: 'Sós aprósütemények ünnepi tálalásban',
   },
   {
-    src: '/image-7.jpg',
+    src: `${BLOB_BASE}/image-7.jpg`,
     width: 3000,
     height: 3128,
     alt: 'Kávé mellé kínált süteményválogatás',
   },
   {
-    src: '/image-8.jpg',
+    src: `${BLOB_BASE}/image-8.jpg`,
     width: 4000,
     height: 3000,
     alt: 'Candy bar rózsaszín részletekkel',
   },
   {
-    src: '/image-9.jpg',
+    src: `${BLOB_BASE}/image-9.jpg`,
     width: 3000,
     height: 4000,
     alt: 'Barátfüle sütemények fa tálon',

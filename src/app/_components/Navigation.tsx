@@ -3,7 +3,6 @@
 import { Phone } from 'lucide-react';
 import React, { useEffect, useMemo, useRef, useState } from 'react';
 import Image from 'next/image';
-import wolt_logo from '../../../public/wolt.png';
 
 type SubMenuItem = {
   label: string;
@@ -46,6 +45,10 @@ const MENU_ITEMS: MenuItem[] = [
     ],
   },
 ];
+
+const BLOB_BASE =
+  'https://zh2mkmryigduzodx.public.blob.vercel-storage.com';
+const woltLogo = `${BLOB_BASE}/wolt.png`;
 
 const formatPhoneNumber = (raw: string) => {
   const digits = raw.replace(/\D/g, '');
@@ -287,8 +290,10 @@ export default function Navigation() {
             aria-label="Wolt rendelés"
           >
             <Image
-              src={wolt_logo}
+              src={woltLogo}
               alt="Wolt logo"
+              width={56}
+              height={56}
               className="w-14"
               sizes="56px"
               priority
@@ -520,13 +525,15 @@ export default function Navigation() {
             rel="noreferrer"
             className="inline-flex items-center gap-2 rounded-full border border-primary-brown px-5 text-sm font-semibold uppercase tracking-[0.3em] text-primary-brown transition-colors hover:bg-primary-brown hover:text-primary-beige focus:outline-none focus-visible:ring-2 focus-visible:ring-primary-brown"
           >
-            <Image
-              src={wolt_logo}
-              alt="Wolt"
-              className="h-14 w-auto"
-              sizes="56px"
-              priority
-            />
+          <Image
+            src={woltLogo}
+            alt="Wolt"
+            width={56}
+            height={56}
+            className="h-14 w-auto"
+            sizes="56px"
+            priority
+          />
             <span className="truncate max-w-32">Rendelés</span>
           </a>
         </div>

@@ -1,10 +1,13 @@
 import Image from 'next/image';
 import Link from 'next/link';
-import baratfuleSign from '../../../public/image-6.jpg';
-import cozyTeaTime from '../../../public/lauren-gray-Zqh5l1JWs5M-unsplash.jpg';
-import piteImage from '../../../public/pite.png';
-import lepeny from '../../../public/turoslepeny.jpg';
 import Logo from './Logo';
+
+const BLOB_BASE =
+  'https://zh2mkmryigduzodx.public.blob.vercel-storage.com';
+const baratfuleSign = `${BLOB_BASE}/image-6.jpg`;
+const cozyTeaTime = `${BLOB_BASE}/lauren-gray-Zqh5l1JWs5M-unsplash.jpg`;
+const lepeny = `${BLOB_BASE}/turoslepeny.jpg`;
+const coffeeGathering = `${BLOB_BASE}/nathan-dumlao-L6H2HQjowgs-unsplash.jpg`;
 
 const highlightTags = [
   '2007 óta családi műhely',
@@ -135,7 +138,7 @@ export default function Header() {
               <div className="relative overflow-hidden rounded-[2.5rem] border border-primary-brown/15 bg-white shadow-[0_30px_80px_-45px_rgba(89,51,30,0.55)] sm:col-span-2">
                 <div className="relative aspect-[5/3]">
                   <Image
-                    src={piteImage}
+                    src={coffeeGathering}
                     alt="Baráti kávézás süteményekkel"
                     fill
                     className="object-cover"

@@ -1,13 +1,15 @@
 import Image from 'next/image';
 import Link from 'next/link';
-import bfImage from '../../public/bf.jpeg';
-import heritageWorkshop from '../../public/hamide-jafari-974x2guatCs-unsplash.jpg';
-import serviceCandy_2 from '../../public/IMG_20231015_124108.jpg';
-import serviceCandy from '../../public/kitti_2.jpg';
-import heritageGathering from '../../public/lauren-gray-Zqh5l1JWs5M-unsplash.jpg';
-import piteImage from '../../public/pite.png';
-import sos from '../../public/sos.png';
 import Header from './_components/Header';
+
+const BLOB_BASE = 'https://zh2mkmryigduzodx.public.blob.vercel-storage.com';
+const heritageWorkshop = `${BLOB_BASE}/hamide-jafari-974x2guatCs-unsplash.jpg`;
+const serviceCandy_2 = `${BLOB_BASE}/IMG_20231015_124108.jpg`;
+const serviceCandy = `${BLOB_BASE}/kitti_2.jpg`;
+const heritageGathering = `${BLOB_BASE}/lauren-gray-Zqh5l1JWs5M-unsplash.jpg`;
+const turosLepenyImage = `${BLOB_BASE}/pite.png`;
+const bfImage = `${BLOB_BASE}/bf.jpeg`;
+const sos = `${BLOB_BASE}/sos.png`;
 
 const HERITAGE_POINTS = [
   'A nagyi receptfüzete ma is ott van a pult mögött, tele kézzel írt megjegyzésekkel.',
@@ -19,7 +21,7 @@ const SIGNATURE_SWEETS = [
   {
     title: 'Házi túrós lepény',
     description: 'Vajas tészta, házi, friss túrókrém – a nagymama kedvence.',
-    image: piteImage,
+    image: turosLepenyImage,
     alt: 'Túrós pite',
     note: 'Ahogy a nagyi készíti',
   },

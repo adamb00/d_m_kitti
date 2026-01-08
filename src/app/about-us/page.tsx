@@ -1,8 +1,11 @@
 import Image from 'next/image';
-import baratfuleSign from '../../../public/baratfule.jpg';
-import kittiPortrait from '../../../public/kitti_1.jpg';
-import workshopImage from '../../../public/kitti_2.jpg';
-import piteImage from '../../../public/pite.png';
+
+const BLOB_BASE =
+  'https://zh2mkmryigduzodx.public.blob.vercel-storage.com';
+const baratfuleSign = `${BLOB_BASE}/baratfule.jpg`;
+const kittiPortrait = `${BLOB_BASE}/kitti_1.jpg`;
+const workshopImage = `${BLOB_BASE}/kitti_2.jpg`;
+const piteImage = `${BLOB_BASE}/pite.png`;
 
 const paragraphs = [
   'Domján-Molnár Kitti vagyok a Barátfüle Házi Sütemények Üzletének vezetője.',
@@ -28,6 +31,8 @@ export default function AboutUs() {
         <Image
           src={baratfuleSign}
           alt="Barátfüle üzlet táblája"
+          width={10632}
+          height={3543}
           priority
           sizes="100vw"
           className="h-auto w-full object-contain"
