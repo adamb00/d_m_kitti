@@ -25,7 +25,6 @@ const MENU_ITEMS: MenuItem[] = [
   {
     label: 'ESEMÉNYEK',
     children: [
-      { label: 'Workshopok', href: '/events/workshopok' },
       { label: 'Kóstolók', href: '/events/kostolok' },
       { label: 'Lakossági események', href: '/events/lakossagi' },
     ],
@@ -37,6 +36,8 @@ const MENU_ITEMS: MenuItem[] = [
       { label: 'Édes sütemények', href: '/sweets/edes' },
     ],
   },
+  { label: 'GALÉRIA', href: '/gallery' },
+  { label: 'KAPCSOLAT', href: '/contact' },
   {
     label: 'MENTES SÜTEMÉNYEK',
     children: [
@@ -44,9 +45,25 @@ const MENU_ITEMS: MenuItem[] = [
       { label: 'Tejmentes', href: '/sweets/mentes/tejmentes' },
     ],
   },
-  { label: 'GALÉRIA', href: '/gallery' },
-  { label: 'KAPCSOLAT', href: '/contact' },
 ];
+
+const formatPhoneNumber = (raw: string) => {
+  const digits = raw.replace(/\D/g, '');
+
+  if (digits.startsWith('36') && digits.length === 11) {
+    return `+36 ${digits.slice(2, 4)} ${digits.slice(4, 7)} ${digits.slice(7)}`;
+  }
+
+  if (digits.startsWith('06') && digits.length === 11) {
+    return `06 ${digits.slice(2, 4)} ${digits.slice(4, 7)} ${digits.slice(7)}`;
+  }
+
+  if (digits.length === 9) {
+    return `${digits.slice(0, 2)} ${digits.slice(2, 5)} ${digits.slice(5)}`;
+  }
+
+  return raw.trim();
+};
 
 export default function Navigation() {
   const [isOpen, setIsOpen] = useState(false);
@@ -58,7 +75,8 @@ export default function Navigation() {
   const [isPointerCoarse, setIsPointerCoarse] = useState(false);
   const desktopNavRef = useRef<HTMLElement | null>(null);
   const contactPhone = process.env.NEXT_PUBLIC_CONTACT_PHONE ?? '';
-  const phoneHref = contactPhone.replace(/\s+/g, '');
+  const phoneHref = contactPhone.replace(/[^\d+]/g, '');
+  const displayPhone = formatPhoneNumber(contactPhone);
 
   useEffect(() => {
     if (isOpen) {
@@ -89,13 +107,13 @@ export default function Navigation() {
     if (isOpen) {
       return { height: '100dvh', minHeight: '100dvh' };
     }
-    return { height: '3.5rem' };
+    return { height: '4.5rem' };
   }, [isOpen]);
 
   const containerClasses = useMemo(() => {
     const base =
       'relative flex flex-col items-center justify-start overflow-hidden transition-[background-color,box-shadow] duration-300 ease-[cubic-bezier(0.16,1,0.3,1)]';
-    const closed = `sticky top-0 z-40 mx-auto w-full max-w-5xl py-1 px-4 ${
+    const closed = `sticky top-0 z-40 mx-auto w-full max-w-5xl py-2 px-4 ${
       isScrolled
         ? 'bg-background/95 shadow-[0_12px_32px_-18px_rgba(71,41,24,0.35)] backdrop-blur'
         : 'bg-transparent'
@@ -139,9 +157,7 @@ export default function Navigation() {
       return;
     }
 
-    const mediaQuery = window.matchMedia(
-      '(hover: none), (pointer: coarse)',
-    );
+    const mediaQuery = window.matchMedia('(hover: none), (pointer: coarse)');
     const updatePointerState = () => {
       setIsPointerCoarse(mediaQuery.matches);
     };
@@ -226,10 +242,10 @@ export default function Navigation() {
           {contactPhone && (
             <a
               href={`tel:${phoneHref}`}
-              className="flex h-12 w-12 items-center justify-center rounded-full text-primary-brown transition-colors hover:bg-primary-brown/10 focus:outline-none focus-visible:ring-2 focus-visible:ring-primary-brown"
+              className="flex h-14 w-14 items-center justify-center rounded-full text-primary-brown transition-colors hover:bg-primary-brown/10 focus:outline-none focus-visible:ring-2 focus-visible:ring-primary-brown"
               aria-label="Telefon"
             >
-              <Phone className="h-5 w-5" />
+              <Phone className="h-6 w-6" />
             </a>
           )}
           <button
@@ -237,9 +253,9 @@ export default function Navigation() {
             onClick={handleToggle}
             aria-expanded={isOpen}
             aria-label={isOpen ? 'Navigáció bezárása' : 'Navigáció megnyitása'}
-            className="flex h-12 w-12 items-center justify-center rounded-full text-primary-brown transition-colors hover:bg-primary-brown/10 focus:outline-none focus-visible:ring-2 focus-visible:ring-primary-brown"
+            className="flex h-14 w-14 items-center justify-center rounded-full text-primary-brown transition-colors hover:bg-primary-brown/10 focus:outline-none focus-visible:ring-2 focus-visible:ring-primary-brown"
           >
-            <span className="relative block h-5 w-6">
+            <span className="relative block h-6 w-7">
               <span
                 className={`absolute left-0 h-0.5 w-full origin-center rounded-sm bg-primary-brown transition-transform duration-500 ${
                   isOpen
@@ -267,14 +283,14 @@ export default function Navigation() {
             href="https://wolt.com/hu/hun/hodmezovasarhely/restaurant/baratfule-hazi-sutemenyek"
             target="_blank"
             rel="noreferrer"
-            className="flex h-12 w-12 items-center justify-center rounded-full transition-colors hover:bg-primary-brown/10 focus:outline-none focus-visible:ring-2 focus-visible:ring-primary-brown"
+            className="flex h-14 w-14 items-center justify-center rounded-full transition-colors hover:bg-primary-brown/10 focus:outline-none focus-visible:ring-2 focus-visible:ring-primary-brown"
             aria-label="Wolt rendelés"
           >
             <Image
               src={wolt_logo}
               alt="Wolt logo"
-              className="w-12"
-              sizes="48px"
+              className="w-14"
+              sizes="56px"
               priority
             />
           </a>
@@ -282,7 +298,7 @@ export default function Navigation() {
       </div>
 
       <ul
-        className={`mt-12 flex w-full flex-1 flex-col items-start justify-start gap-6 overflow-y-auto px-8 pb-14 text-lg transition-[opacity,transform] duration-500 ease-[cubic-bezier(0.16,1,0.3,1)] ${menuStateClasses}`}
+        className={`mt-12 flex w-full flex-1 flex-col items-start justify-start gap-6 overflow-y-auto px-8 pb-14 text-xl transition-[opacity,transform] duration-500 ease-[cubic-bezier(0.16,1,0.3,1)] ${menuStateClasses}`}
         aria-hidden={!isOpen}
       >
         {MENU_ITEMS.map((item, index) => {
@@ -304,7 +320,7 @@ export default function Navigation() {
                 <div className="flex w-full items-center gap-3">
                   <a
                     href={item.href ?? '#'}
-                    className={`flex-1 text-left text-lg font-semibold uppercase tracking-[0.25em] transition-colors hover:text-primary-brown-dark ${
+                    className={`flex-1 text-left text-xl font-semibold uppercase tracking-[0.25em] transition-colors hover:text-primary-brown-dark ${
                       item.important ? 'text-red-500' : 'text-primary-brown'
                     }`}
                   >
@@ -345,7 +361,7 @@ export default function Navigation() {
               ) : (
                 <a
                   href={item.href ?? '#'}
-                  className={`text-left text-lg font-semibold uppercase tracking-[0.25em] transition-colors hover:text-primary-brown-dark ${
+                  className={`text-left text-xl font-semibold uppercase tracking-[0.25em] transition-colors hover:text-primary-brown-dark ${
                     item.important ? 'text-red-500' : 'text-primary-brown'
                   }`}
                 >
@@ -397,20 +413,25 @@ export default function Navigation() {
       ref={desktopNavRef}
       className="sticky top-0 z-30 hidden w-full border-b border-primary-brown/15 bg-background/95 backdrop-blur lg:block"
     >
-      <div className="mx-auto flex w-full max-w-5xl items-center justify-between gap-8 px-6 py-4 xl:max-w-6xl xl:px-8">
-        <div className="flex items-center gap-6">
+      <div className="mx-auto flex w-full items-center gap-2 px-6 py-5  xl:px-8">
+        <div className="flex shrink-0 items-center justify-start gap-6">
           {contactPhone && (
             <a
               href={`tel:${phoneHref}`}
-              className="inline-flex items-center gap-2 whitespace-nowrap text-sm font-semibold uppercase tracking-[0.25em] text-primary-brown transition-all duration-200 hover:scale-110 hover:text-primary-brown-dark focus:outline-none focus-visible:ring-2 focus-visible:ring-primary-brown"
+              className="inline-flex flex-col items-center gap-1 rounded-full border border-primary-brown/30 bg-white/70 px-4 py-2 text-center text-primary-brown transition-all duration-200 hover:scale-105 hover:text-primary-brown-dark focus:outline-none focus-visible:ring-2 focus-visible:ring-primary-brown"
             >
-              <Phone className="h-4 w-4 shrink-0" />
-              <span className="truncate max-w-40">Hívj minket!</span>
+              <span className="inline-flex items-center gap-2 whitespace-nowrap text-base font-semibold uppercase leading-tight tracking-[0.2em]">
+                <Phone className="h-5 w-5 shrink-0" />
+                Hívj minket!
+              </span>
+              <span className="whitespace-nowrap text-sm font-semibold tabular-nums leading-tight tracking-[0.18em] text-primary-brown/80">
+                {displayPhone}
+              </span>
             </a>
           )}
         </div>
 
-        <ul className="flex flex-1 flex-wrap items-center justify-center gap-x-10 gap-y-4 text-[0.68rem] font-semibold uppercase tracking-[0.16em] text-primary-brown">
+        <ul className="flex w-full flex-1 flex-wrap items-center justify-center gap-4 text-[0.7rem] font-semibold uppercase tracking-[0.12em] text-primary-brown xl:text-[0.78rem] xl:tracking-[0.16em]">
           {MENU_ITEMS.map((item) => {
             const hasChildren = Boolean(item.children?.length);
             const labelClasses = item.important
@@ -420,14 +441,17 @@ export default function Navigation() {
               activeDesktopSubmenu === item.label && isPointerCoarse;
 
             return (
-              <li key={item.label} className="relative group">
+              <li
+                key={item.label}
+                className="relative group flex justify-center px-1"
+              >
                 {hasChildren ? (
                   <a
                     href={item.href ?? '#'}
                     onClick={(event) => handleDesktopItemClick(event, item)}
                     aria-haspopup="true"
                     aria-expanded={submenuIsActive}
-                    className={`inline-flex max-w-40 items-center gap-1 text-center uppercase transition-all duration-200 hover:scale-105 hover:text-primary-brown-dark focus:outline-none focus-visible:ring-2 focus-visible:ring-primary-brown ${labelClasses}`}
+                    className={`flex w-full  items-center justify-center gap-1 whitespace-nowrap text-center uppercase transition-all duration-200 hover:scale-105 hover:text-primary-brown-dark focus:outline-none focus-visible:ring-2 focus-visible:ring-primary-brown ${labelClasses}`}
                   >
                     <span className="block whitespace-nowrap leading-tight">
                       {item.label}
@@ -452,7 +476,7 @@ export default function Navigation() {
                 ) : (
                   <a
                     href={item.href ?? '#'}
-                    className={`inline-flex max-w-40 items-center gap-1 text-center uppercase transition-all duration-200 hover:scale-105 hover:text-primary-brown-dark focus:outline-none focus-visible:ring-2 focus-visible:ring-primary-brown ${labelClasses}`}
+                    className={`flex w-full items-center justify-center gap-1 whitespace-nowrap text-center uppercase transition-all duration-200 hover:scale-105 hover:text-primary-brown-dark focus:outline-none focus-visible:ring-2 focus-visible:ring-primary-brown ${labelClasses}`}
                   >
                     <span className="block whitespace-nowrap leading-tight">
                       {item.label}
@@ -468,7 +492,7 @@ export default function Navigation() {
                         : 'pointer-events-none opacity-0'
                     } group-hover:pointer-events-auto group-hover:opacity-100 group-focus-within:pointer-events-auto group-focus-within:opacity-100`}
                   >
-                    <div className="flex min-w-[18rem] flex-col gap-1 rounded-b-sm bg-background px-4 py-3 text-left text-[0.7rem] font-semibold uppercase tracking-[0.16em] text-primary-brown backdrop-blur">
+                    <div className="flex min-w-[18rem] flex-col gap-1 rounded-b-sm bg-background px-4 py-3 text-left text-[0.8rem] font-semibold uppercase tracking-[0.16em] text-primary-brown backdrop-blur">
                       {item.children.map((child) => (
                         <a
                           key={child.label}
@@ -489,21 +513,23 @@ export default function Navigation() {
           })}
         </ul>
 
-        <a
-          href="https://wolt.com/hu/hun/hodmezovasarhely/restaurant/baratfule-hazi-sutemenyek"
-          target="_blank"
-          rel="noreferrer"
-          className="inline-flex items-center gap-2 rounded-full border border-primary-brown px-4  text-xs font-semibold uppercase tracking-[0.3em] text-primary-brown transition-colors hover:bg-primary-brown hover:text-primary-beige focus:outline-none focus-visible:ring-2 focus-visible:ring-primary-brown"
-        >
-          <Image
-            src={wolt_logo}
-            alt="Wolt"
-            className="h-12 w-auto"
-            sizes="48px"
-            priority
-          />
-          <span className="truncate max-w-32">Rendelés</span>
-        </a>
+        <div className="flex shrink-0 items-center justify-end">
+          <a
+            href="https://wolt.com/hu/hun/hodmezovasarhely/restaurant/baratfule-hazi-sutemenyek"
+            target="_blank"
+            rel="noreferrer"
+            className="inline-flex items-center gap-2 rounded-full border border-primary-brown px-5 text-sm font-semibold uppercase tracking-[0.3em] text-primary-brown transition-colors hover:bg-primary-brown hover:text-primary-beige focus:outline-none focus-visible:ring-2 focus-visible:ring-primary-brown"
+          >
+            <Image
+              src={wolt_logo}
+              alt="Wolt"
+              className="h-14 w-auto"
+              sizes="56px"
+              priority
+            />
+            <span className="truncate max-w-32">Rendelés</span>
+          </a>
+        </div>
       </div>
     </nav>
   );
