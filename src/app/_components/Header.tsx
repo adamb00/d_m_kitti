@@ -1,13 +1,7 @@
 import Image from 'next/image';
 import Link from 'next/link';
+import { IMAGE_URLS } from '@/lib/image-urls';
 import Logo from './Logo';
-
-const BLOB_BASE =
-  'https://zh2mkmryigduzodx.public.blob.vercel-storage.com';
-const baratfuleSign = `${BLOB_BASE}/image-6.jpg`;
-const cozyTeaTime = `${BLOB_BASE}/lauren-gray-Zqh5l1JWs5M-unsplash.jpg`;
-const lepeny = `${BLOB_BASE}/turoslepeny.jpg`;
-const coffeeGathering = `${BLOB_BASE}/nathan-dumlao-L6H2HQjowgs-unsplash.jpg`;
 
 const highlightTags = [
   '2007 óta családi műhely',
@@ -20,7 +14,25 @@ export default function Header() {
   const phoneHref = contactPhone.replace(/\s+/g, '');
 
   return (
-    <header className="relative overflow-hidden bg-[radial-gradient(circle_at_top_left,#f6e1c9,#f1d2b0,#eac49c,#d9b491)] text-primary-brown">
+    <header className="relative overflow-hidden text-primary-brown">
+      <Image
+        src={IMAGE_URLS.header.background}
+        alt=""
+        fill
+        sizes="100vw"
+        quality={90}
+        className="object-cover"
+        priority
+      />
+      {/* <div
+        className="pointer-events-none absolute inset-0 bg-gradient-to-b from-[#4b2d1b]/60 via-[#4b2d1b]/35 to-transparent"
+        aria-hidden
+      /> */}
+
+      <div
+        className="pointer-events-none absolute inset-0 bg-primary-beige/10 backdrop-blur-sm"
+        aria-hidden
+      />
       <div
         className="pointer-events-none absolute inset-0 bg-[radial-gradient(circle_at_bottom_right,rgba(120,78,49,0.12),transparent_55%)]"
         aria-hidden
@@ -28,7 +40,7 @@ export default function Header() {
       <div className="pointer-events-none absolute -left-20 top-10 hidden h-64 w-64 rounded-full border border-dashed border-primary-brown/20 lg:block" />
       <div className="pointer-events-none absolute -right-24 -bottom-12 hidden h-72 w-72 rotate-12 rounded-full border border-primary-brown/15 lg:block" />
 
-      <div className="relative mx-auto flex w-full max-w-7xl flex-col gap-16 px-6 py-14 lg:flex-row lg:items-center lg:gap-20 lg:py-20">
+      <div className="relative mx-auto flex w-full max-w-7xl flex-col gap-16 px-6 py-14 lg:flex-row lg:items-center lg:gap-20 lg:py-20 ">
         <div className="relative flex flex-2 flex-col gap-8">
           <div className="flex flex-wrap items-center gap-3 text-[0.7rem] uppercase tracking-[0.35em] text-primary-brown/60">
             {highlightTags.map((tag) => (
@@ -47,11 +59,11 @@ export default function Header() {
                 <Logo className="w-full" />
               </div>
             </div>
-            <h1 className="font-serif text-3xl font-semibold leading-tight text-primary-brown sm:text-4xl lg:text-[2.8rem]">
+            <h1 className="font-serif text-3xl font-semibold leading-tight text-primary-brown/90 sm:text-4xl lg:text-[2.8rem]">
               Régi családi receptek, illatos sütemények és figyelmes vendéglátás
               Hódmezővásárhely szívében.
             </h1>
-            <p className="max-w-xl text-base leading-relaxed text-primary-brown/80 sm:text-lg">
+            <p className="max-w-xl text-base leading-relaxed text-primary-brown/90 sm:text-lg">
               A Barátfüle desszertjei minden falatban a nagymama konyháját
               idézik. Esküvőre, ballagásra, születésnapra vagy egy meghitt
               családi délutánra készülünk? Gondoskodunk róla, hogy az asztalon a
@@ -74,7 +86,7 @@ export default function Header() {
             </Link>
           </div>
 
-          <div className="flex flex-col gap-2 text-xs uppercase tracking-[0.35em] text-primary-brown/60 sm:flex-row sm:items-center sm:gap-4">
+          <div className="flex flex-col gap-2 text-xs uppercase tracking-[0.35em] text-primary-beige/90 sm:flex-row sm:items-center sm:gap-4">
             <span>Sütve szeretettel</span>
             <span>Őstermelői alapanyagok</span>
             <span>Kicsiktől a nagy rendezvényekig</span>
@@ -98,12 +110,13 @@ export default function Header() {
             <div className="relative overflow-hidden rounded-[3rem] border border-primary-brown/15 bg-white shadow-[0_35px_90px_-45px_rgba(89,51,30,0.6)]">
               <div className="relative aspect-4/3">
                 <Image
-                  src={baratfuleSign}
+                  src={IMAGE_URLS.header.baratfuleSign}
                   alt="Barátfüle üzlet táblája"
                   fill
                   className="object-cover"
                   sizes="(min-width: 1280px) 420px, (min-width: 1024px) 360px, (min-width: 768px) 320px, 280px"
                   priority
+                  quality={100}
                 />
               </div>
             </div>
@@ -112,10 +125,10 @@ export default function Header() {
               <div className="relative -rotate-2 overflow-hidden rounded-[2.5rem] border border-primary-brown/15 bg-white shadow-[0_30px_80px_-45px_rgba(89,51,30,0.55)]">
                 <div className="relative aspect-square">
                   <Image
-                    src={lepeny}
+                    src={IMAGE_URLS.header.sos}
                     alt="Frissen sült sütemények pulton"
                     fill
-                    className="object-contain bg-primary-brown/80"
+                    className="object-cover"
                     sizes="(min-width: 1024px) 180px, (min-width: 768px) 160px, 140px"
                     priority
                   />
@@ -125,7 +138,7 @@ export default function Header() {
               <div className="relative rotate-3 -top-3 overflow-hidden rounded-[2.5rem] border border-primary-brown/15 bg-white shadow-[0_30px_80px_-45px_rgba(89,51,30,0.55)] sm:translate-y-6">
                 <div className="relative aspect-square">
                   <Image
-                    src={cozyTeaTime}
+                    src={IMAGE_URLS.header.cozyTeaTime}
                     alt="Családias teázás süteményekkel"
                     fill
                     className="object-cover"
@@ -138,7 +151,7 @@ export default function Header() {
               <div className="relative overflow-hidden rounded-[2.5rem] border border-primary-brown/15 bg-white shadow-[0_30px_80px_-45px_rgba(89,51,30,0.55)] sm:col-span-2">
                 <div className="relative aspect-[5/3]">
                   <Image
-                    src={coffeeGathering}
+                    src={IMAGE_URLS.header.coffeeGathering}
                     alt="Baráti kávézás süteményekkel"
                     fill
                     className="object-cover"

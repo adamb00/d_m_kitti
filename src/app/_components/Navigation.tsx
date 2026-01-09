@@ -46,10 +46,6 @@ const MENU_ITEMS: MenuItem[] = [
   },
 ];
 
-const BLOB_BASE =
-  'https://zh2mkmryigduzodx.public.blob.vercel-storage.com';
-const woltLogo = `${BLOB_BASE}/wolt.png`;
-
 const formatPhoneNumber = (raw: string) => {
   const digits = raw.replace(/\D/g, '');
 
@@ -290,7 +286,7 @@ export default function Navigation() {
             aria-label="Wolt rendelés"
           >
             <Image
-              src={woltLogo}
+              src={'/wolt.png'}
               alt="Wolt logo"
               width={56}
               height={56}
@@ -303,7 +299,7 @@ export default function Navigation() {
       </div>
 
       <ul
-        className={`mt-12 flex w-full flex-1 flex-col items-start justify-start gap-6 overflow-y-auto px-8 pb-14 text-xl transition-[opacity,transform] duration-500 ease-[cubic-bezier(0.16,1,0.3,1)] ${menuStateClasses}`}
+        className={`mt-12 flex w-full flex-1 flex-col items-start justify-start gap-6 overflow-y-auto px-8 pb-14 text-2xl transition-[opacity,transform] duration-500 ease-[cubic-bezier(0.16,1,0.3,1)] ${menuStateClasses}`}
         aria-hidden={!isOpen}
       >
         {MENU_ITEMS.map((item, index) => {
@@ -325,7 +321,7 @@ export default function Navigation() {
                 <div className="flex w-full items-center gap-3">
                   <a
                     href={item.href ?? '#'}
-                    className={`flex-1 text-left text-xl font-semibold uppercase tracking-[0.25em] transition-colors hover:text-primary-brown-dark ${
+                    className={`flex-1 text-left text-2xl font-semibold uppercase tracking-[0.25em] transition-colors hover:text-primary-brown-dark ${
                       item.important ? 'text-red-500' : 'text-primary-brown'
                     }`}
                   >
@@ -366,7 +362,7 @@ export default function Navigation() {
               ) : (
                 <a
                   href={item.href ?? '#'}
-                  className={`text-left text-xl font-semibold uppercase tracking-[0.25em] transition-colors hover:text-primary-brown-dark ${
+                  className={`text-left text-2xl font-semibold uppercase tracking-[0.25em] transition-colors hover:text-primary-brown-dark ${
                     item.important ? 'text-red-500' : 'text-primary-brown'
                   }`}
                 >
@@ -375,7 +371,7 @@ export default function Navigation() {
               )}
               {item.children && (
                 <ul
-                  className={`flex w-full flex-col items-start gap-2 overflow-hidden text-left text-sm font-medium uppercase tracking-[0.2em] text-primary-brown/80 transition-[max-height,opacity,transform] duration-300 ease-[cubic-bezier(0.16,1,0.3,1)] ${
+                  className={`flex w-full flex-col items-start gap-2 overflow-hidden text-left text-base font-medium uppercase tracking-[0.2em] text-primary-brown/80 transition-[max-height,opacity,transform] duration-300 ease-[cubic-bezier(0.16,1,0.3,1)] ${
                     submenuOpen
                       ? 'pointer-events-auto opacity-100 translate-y-0'
                       : 'pointer-events-none opacity-0 -translate-y-2'
@@ -425,18 +421,18 @@ export default function Navigation() {
               href={`tel:${phoneHref}`}
               className="inline-flex flex-col items-center gap-1 rounded-full border border-primary-brown/30 bg-white/70 px-4 py-2 text-center text-primary-brown transition-all duration-200 hover:scale-105 hover:text-primary-brown-dark focus:outline-none focus-visible:ring-2 focus-visible:ring-primary-brown"
             >
-              <span className="inline-flex items-center gap-2 whitespace-nowrap text-base font-semibold uppercase leading-tight tracking-[0.2em]">
+              <span className="inline-flex items-center gap-2 whitespace-nowrap text-lg font-semibold uppercase leading-tight tracking-[0.2em]">
                 <Phone className="h-5 w-5 shrink-0" />
                 Hívj minket!
               </span>
-              <span className="whitespace-nowrap text-sm font-semibold tabular-nums leading-tight tracking-[0.18em] text-primary-brown/80">
+              <span className="whitespace-nowrap text-base font-semibold tabular-nums leading-tight tracking-[0.18em] text-primary-brown/80">
                 {displayPhone}
               </span>
             </a>
           )}
         </div>
 
-        <ul className="flex w-full flex-1 flex-wrap items-center justify-center gap-4 text-[0.7rem] font-semibold uppercase tracking-[0.12em] text-primary-brown xl:text-[0.78rem] xl:tracking-[0.16em]">
+        <ul className="flex w-full flex-1 flex-wrap items-center justify-center gap-4 text-[0.8rem] font-semibold uppercase tracking-[0.12em] text-primary-brown xl:text-[0.9rem] xl:tracking-[0.16em]">
           {MENU_ITEMS.map((item) => {
             const hasChildren = Boolean(item.children?.length);
             const labelClasses = item.important
@@ -497,7 +493,7 @@ export default function Navigation() {
                         : 'pointer-events-none opacity-0'
                     } group-hover:pointer-events-auto group-hover:opacity-100 group-focus-within:pointer-events-auto group-focus-within:opacity-100`}
                   >
-                    <div className="flex min-w-[18rem] flex-col gap-1 rounded-b-sm bg-background px-4 py-3 text-left text-[0.8rem] font-semibold uppercase tracking-[0.16em] text-primary-brown backdrop-blur">
+                    <div className="flex min-w-[18rem] flex-col gap-1 rounded-b-sm bg-background px-4 py-3 text-left text-[0.9rem] font-semibold uppercase tracking-[0.16em] text-primary-brown backdrop-blur">
                       {item.children.map((child) => (
                         <a
                           key={child.label}
@@ -523,17 +519,17 @@ export default function Navigation() {
             href="https://wolt.com/hu/hun/hodmezovasarhely/restaurant/baratfule-hazi-sutemenyek"
             target="_blank"
             rel="noreferrer"
-            className="inline-flex items-center gap-2 rounded-full border border-primary-brown px-5 text-sm font-semibold uppercase tracking-[0.3em] text-primary-brown transition-colors hover:bg-primary-brown hover:text-primary-beige focus:outline-none focus-visible:ring-2 focus-visible:ring-primary-brown"
+            className="inline-flex items-center gap-2 rounded-full border border-primary-brown px-5 text-base font-semibold uppercase tracking-[0.3em] text-primary-brown transition-colors hover:bg-primary-brown hover:text-primary-beige focus:outline-none focus-visible:ring-2 focus-visible:ring-primary-brown"
           >
-          <Image
-            src={woltLogo}
-            alt="Wolt"
-            width={56}
-            height={56}
-            className="h-14 w-auto"
-            sizes="56px"
-            priority
-          />
+            <Image
+              src={'/wolt.png'}
+              alt="Wolt"
+              width={56}
+              height={56}
+              className="h-14 w-auto"
+              sizes="56px"
+              priority
+            />
             <span className="truncate max-w-32">Rendelés</span>
           </a>
         </div>

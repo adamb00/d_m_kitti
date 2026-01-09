@@ -4,10 +4,7 @@ const nextConfig: NextConfig = {
   images: {
     remotePatterns: [
       { hostname: 'images.react-photo-album.com' },
-      {
-        protocol: 'https',
-        hostname: 'zh2mkmryigduzodx.public.blob.vercel-storage.com',
-      },
+      { protocol: 'https', hostname: 'res.cloudinary.com' },
     ],
   },
   experimental: {

@@ -1,9 +1,5 @@
 import Image from 'next/image';
 
-const BLOB_BASE =
-  'https://zh2mkmryigduzodx.public.blob.vercel-storage.com';
-const logoSrc = `${BLOB_BASE}/logo.png`;
-
 type LogoProps = {
   className?: string;
 };
@@ -11,7 +7,7 @@ type LogoProps = {
 export default function Logo({ className }: LogoProps) {
   return (
     <Image
-      src={logoSrc}
+      src={'/logo.png'}
       alt="Barátfüle logó"
       width={593}
       height={223}

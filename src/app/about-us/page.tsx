@@ -1,11 +1,5 @@
 import Image from 'next/image';
-
-const BLOB_BASE =
-  'https://zh2mkmryigduzodx.public.blob.vercel-storage.com';
-const baratfuleSign = `${BLOB_BASE}/baratfule.jpg`;
-const kittiPortrait = `${BLOB_BASE}/kitti_1.jpg`;
-const workshopImage = `${BLOB_BASE}/kitti_2.jpg`;
-const piteImage = `${BLOB_BASE}/pite.png`;
+import { IMAGE_URLS } from '@/lib/image-urls';
 
 const paragraphs = [
   'Domján-Molnár Kitti vagyok a Barátfüle Házi Sütemények Üzletének vezetője.',
@@ -29,12 +23,13 @@ export default function AboutUs() {
 
       <section className="relative w-full overflow-hidden bg-[#ead4bf]">
         <Image
-          src={baratfuleSign}
+          src={IMAGE_URLS.about.baratfuleSign}
           alt="Barátfüle üzlet táblája"
           width={10632}
           height={3543}
           priority
           sizes="100vw"
+          quality={90}
           className="h-auto w-full object-contain"
         />
         <div
@@ -74,10 +69,11 @@ export default function AboutUs() {
             <div className="relative overflow-hidden rounded-[2.75rem] border border-primary-brown/15 bg-[#fff7ef] shadow-[0_30px_80px_-45px_rgba(89,51,30,0.5)]">
               <div className="relative aspect-[4/5]">
                 <Image
-                  src={kittiPortrait}
+                  src={IMAGE_URLS.about.kittiPortrait}
                   alt="Domján-Molnár Kitti portréja"
                   fill
-                  sizes="(min-width: 1024px) 360px, (min-width: 640px) 45vw, 90vw"
+                  sizes="(min-width: 1280px) 480px, (min-width: 1024px) 420px, (min-width: 768px) 360px, 90vw"
+                  quality={90}
                   className="object-cover"
                   priority
                 />
@@ -87,10 +83,11 @@ export default function AboutUs() {
             <div className="relative overflow-hidden rounded-[2.5rem] border border-primary-brown/15 bg-[#fff7ef] shadow-[0_25px_70px_-45px_rgba(89,51,30,0.4)]">
               <div className="relative aspect-[5/4]">
                 <Image
-                  src={piteImage}
+                  src={IMAGE_URLS.about.pite}
                   alt="Házi pite"
                   fill
-                  sizes="(min-width: 1024px) 360px, (min-width: 640px) 45vw, 90vw"
+                  sizes="(min-width: 1280px) 480px, (min-width: 1024px) 420px, (min-width: 768px) 360px, 90vw"
+                  quality={90}
                   className="object-cover"
                 />
               </div>
@@ -99,10 +96,11 @@ export default function AboutUs() {
             <div className="relative overflow-hidden rounded-[2.5rem] border border-primary-brown/15 bg-[#fff7ef] shadow-[0_25px_70px_-45px_rgba(89,51,30,0.4)] sm:col-span-2 lg:col-span-1">
               <div className="relative aspect-[5/4]">
                 <Image
-                  src={workshopImage}
+                  src={IMAGE_URLS.about.workshopImage}
                   alt="Családi pillanat a Barátfüle konyhájában"
                   fill
-                  sizes="(min-width: 1024px) 360px, (min-width: 640px) 90vw, 90vw"
+                  sizes="(min-width: 1280px) 520px, (min-width: 1024px) 460px, (min-width: 768px) 420px, 90vw"
+                  quality={90}
                   className="object-cover"
                 />
               </div>

@@ -1,15 +1,7 @@
 import Image from 'next/image';
 import Link from 'next/link';
+import { IMAGE_URLS } from '@/lib/image-urls';
 import Header from './_components/Header';
-
-const BLOB_BASE = 'https://zh2mkmryigduzodx.public.blob.vercel-storage.com';
-const heritageWorkshop = `${BLOB_BASE}/hamide-jafari-974x2guatCs-unsplash.jpg`;
-const serviceCandy_2 = `${BLOB_BASE}/IMG_20231015_124108.jpg`;
-const serviceCandy = `${BLOB_BASE}/kitti_2.jpg`;
-const heritageGathering = `${BLOB_BASE}/lauren-gray-Zqh5l1JWs5M-unsplash.jpg`;
-const turosLepenyImage = `${BLOB_BASE}/pite.png`;
-const bfImage = `${BLOB_BASE}/bf.jpeg`;
-const sos = `${BLOB_BASE}/sos.png`;
 
 const HERITAGE_POINTS = [
   'A nagyi receptfüzete ma is ott van a pult mögött, tele kézzel írt megjegyzésekkel.',
@@ -21,7 +13,7 @@ const SIGNATURE_SWEETS = [
   {
     title: 'Házi túrós lepény',
     description: 'Vajas tészta, házi, friss túrókrém – a nagymama kedvence.',
-    image: turosLepenyImage,
+    image: IMAGE_URLS.home.turosLepeny,
     alt: 'Túrós pite',
     note: 'Ahogy a nagyi készíti',
   },
@@ -29,14 +21,14 @@ const SIGNATURE_SWEETS = [
     title: 'Szilvalekváros házi barátfüle',
     description: 'Omlós tészta, gazdag szilvalekvár töltelék.',
     note: 'Házias ízek',
-    image: bfImage,
+    image: IMAGE_URLS.home.bf,
     alt: 'Szilvalekváros házi barátfüle',
   },
   {
     title: 'Sós-sajtos falatkák',
     description:
       'Házi perec · sós és sajtos stangli · sörkifli · sajtos tallér · pogácsák',
-    image: sos,
+    image: IMAGE_URLS.home.sos,
     alt: 'Sós falatkák',
   },
 ];
@@ -120,7 +112,7 @@ export default function Home() {
             <div className="relative -rotate-2 overflow-hidden rounded-[3rem] border border-primary-brown/15 bg-[#fff7ef] shadow-[0_35px_95px_-50px_rgba(89,51,30,0.5)]">
               <div className="relative aspect-4/3">
                 <Image
-                  src={heritageWorkshop}
+                  src={IMAGE_URLS.home.heritageWorkshop}
                   alt="Kézműves sütés a Barátfülé műhelyében"
                   fill
                   className="object-cover"
@@ -133,7 +125,7 @@ export default function Home() {
             <div className="relative ml-auto w-full max-w-sm rotate-3 overflow-hidden rounded-[2.5rem] border border-primary-brown/15 bg-[#fff7ef] shadow-[0_30px_90px_-50px_rgba(89,51,30,0.5)]">
               <div className="relative aspect-4/5">
                 <Image
-                  src={heritageGathering}
+                  src={IMAGE_URLS.home.heritageGathering}
                   alt="Desszertasztal régi porcelán tányérokkal"
                   fill
                   className="object-cover"
@@ -147,6 +139,14 @@ export default function Home() {
       </section>
 
       <section className="relative overflow-hidden bg-[#5f3b24] py-16 text-primary-beige lg:py-20">
+        <div
+          className="pointer-events-none absolute inset-0 bg-[url('/bg-1.png')] bg-cover bg-center"
+          aria-hidden
+        />
+        <div
+          className="pointer-events-none absolute inset-0 bg-primary-brown/30 backdrop-blur-sm"
+          aria-hidden
+        />
         <div className="pointer-events-none absolute inset-0 bg-[radial-gradient(circle_at_top,rgba(255,255,255,0.16),transparent_70%),radial-gradient(circle_at_bottom,rgba(0,0,0,0.25),transparent_65%)]" />
         <div className="relative mx-auto flex w-full max-w-6xl flex-col gap-12 px-6">
           <div className="flex flex-col gap-4 text-center">
@@ -239,7 +239,7 @@ export default function Home() {
             <div className="relative overflow-hidden rounded-[3.2rem] border border-primary-brown/15 bg-[#fff7ef] shadow-[0_40px_110px_-55px_rgba(89,51,30,0.5)]">
               <div className="relative aspect-4/3">
                 <Image
-                  src={serviceCandy}
+                  src={IMAGE_URLS.home.serviceCandy}
                   alt="Esküvői desszertasztal finom részletekkel"
                   fill
                   className="object-cover"
@@ -250,7 +250,7 @@ export default function Home() {
             <div className="relative overflow-hidden rounded-[3.2rem] border border-primary-brown/15 bg-[#fff7ef] shadow-[0_40px_110px_-55px_rgba(89,51,30,0.5)]">
               <div className="relative aspect-4/3">
                 <Image
-                  src={serviceCandy_2}
+                  src={IMAGE_URLS.home.serviceCandy_2}
                   alt="Esküvői desszertasztal finom részletekkel"
                   fill
                   className="object-cover"

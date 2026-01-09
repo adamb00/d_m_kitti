@@ -3,6 +3,7 @@
 import { RenderImage, RenderWrapper, RowsPhotoAlbum } from 'react-photo-album';
 import React, { useEffect, useMemo, useState } from 'react';
 import Image from 'next/image';
+import { IMAGE_URLS } from '@/lib/image-urls';
 
 type GalleryPhoto = {
   src: string;
@@ -11,60 +12,57 @@ type GalleryPhoto = {
   alt: string;
 };
 
-const BLOB_BASE =
-  'https://zh2mkmryigduzodx.public.blob.vercel-storage.com';
-
 const PHOTOS: GalleryPhoto[] = [
   {
-    src: `${BLOB_BASE}/image-1.jpg`,
+    src: IMAGE_URLS.gallery[0],
     width: 4000,
     height: 3000,
     alt: 'Esküvői desszertasztal vintage hangulatban',
   },
   {
-    src: `${BLOB_BASE}/image-2.jpg`,
+    src: IMAGE_URLS.gallery[1],
     width: 3525,
     height: 3000,
     alt: 'Friss gyümölcsös tarte válogatás',
   },
   {
-    src: `${BLOB_BASE}/image-3.jpg`,
+    src: IMAGE_URLS.gallery[2],
     width: 4000,
     height: 3000,
     alt: 'Csokoládés szeletek karamell öntettel',
   },
   {
-    src: `${BLOB_BASE}/image-4.jpg`,
+    src: IMAGE_URLS.gallery[3],
     width: 4000,
     height: 3000,
     alt: 'Esküvői torta vadvirág díszekkel',
   },
   {
-    src: `${BLOB_BASE}/image-5.jpg`,
+    src: IMAGE_URLS.gallery[4],
     width: 3000,
     height: 4000,
     alt: 'Desszertasztal arany részletekkel',
   },
   {
-    src: `${BLOB_BASE}/image-6.jpg`,
+    src: IMAGE_URLS.gallery[5],
     width: 4000,
     height: 3000,
     alt: 'Sós aprósütemények ünnepi tálalásban',
   },
   {
-    src: `${BLOB_BASE}/image-7.jpg`,
+    src: IMAGE_URLS.gallery[6],
     width: 3000,
     height: 3128,
     alt: 'Kávé mellé kínált süteményválogatás',
   },
   {
-    src: `${BLOB_BASE}/image-8.jpg`,
+    src: IMAGE_URLS.gallery[7],
     width: 4000,
     height: 3000,
     alt: 'Candy bar rózsaszín részletekkel',
   },
   {
-    src: `${BLOB_BASE}/image-9.jpg`,
+    src: IMAGE_URLS.gallery[8],
     width: 3000,
     height: 4000,
     alt: 'Barátfüle sütemények fa tálon',
