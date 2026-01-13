@@ -28,3 +28,53 @@
 
   --color-col: var(--col);
 }
+
+@layer utilities {
+  .sweets-bg {
+    background-image: url('/sweets-bg@2x.png');
+    background-image: -webkit-image-set(
+      url('/sweets-bg@2x.png') 1x,
+      url('/sweets-bg@2x.png') 2x
+    );
+    background-image: image-set(
+      url('/sweets-bg@2x.png') 1x,
+      url('/sweets-bg@2x.png') 2x
+    );
+  }
+
+  .savory-bg {
+    background-image: url('/savory-bg@2x.png');
+    background-image: -webkit-image-set(
+      url('/savory-bg@2x.png') 1x,
+      url('/savory-bg@2x.png') 2x
+    );
+    background-image: image-set(
+      url('/savory-bg@2x.png') 1x,
+      url('/savory-bg@2x.png') 2x
+    );
+  }
+
+  .free-from-bg {
+    background-image: url('/free-from-bg@2x.png');
+    background-image: -webkit-image-set(
+      url('/free-from-bg@2x.png') 1x,
+      url('/free-from-bg@2x.png') 2x
+    );
+    background-image: image-set(
+      url('/free-from-bg@2x.png') 1x,
+      url('/free-from-bg@2x.png') 2x
+    );
+  }
+
+  .fr-from-bg {
+    background-image: url('/fr-from.png');
+    background-image: -webkit-image-set(
+      url('/fr-from.png') 1x,
+      url('/fr-from@2x.png') 2x
+    );
+    background-image: image-set(
+      url('/fr-from.png') 1x,
+      url('/fr-from@2x.png') 2x
+    );
+  }
+}

@@ -125,7 +125,7 @@ export default function Header() {
               <div className="relative -rotate-2 overflow-hidden rounded-[2.5rem] border border-primary-brown/15 bg-white shadow-[0_30px_80px_-45px_rgba(89,51,30,0.55)]">
                 <div className="relative aspect-square">
                   <Image
-                    src={IMAGE_URLS.header.sos}
+                    src={'/sweets/savory/vegyes.jpg'}
                     alt="Frissen sült sütemények pulton"
                     fill
                     className="object-cover"
@@ -149,7 +149,7 @@ export default function Header() {
               </div>
 
               <div className="relative overflow-hidden rounded-[2.5rem] border border-primary-brown/15 bg-white shadow-[0_30px_80px_-45px_rgba(89,51,30,0.55)] sm:col-span-2">
-                <div className="relative aspect-[5/3]">
+                <div className="relative aspect-5/3">
                   <Image
                     src={IMAGE_URLS.header.coffeeGathering}
                     alt="Baráti kávézás süteményekkel"

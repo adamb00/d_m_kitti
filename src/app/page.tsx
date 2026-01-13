@@ -13,7 +13,7 @@ const SIGNATURE_SWEETS = [
   {
     title: 'Házi túrós lepény',
     description: 'Vajas tészta, házi, friss túrókrém – a nagymama kedvence.',
-    image: IMAGE_URLS.home.turosLepeny,
+    image: '/sweets/sweet/túrós_lepény.jpg',
     alt: 'Túrós pite',
     note: 'Ahogy a nagyi készíti',
   },
@@ -21,14 +21,14 @@ const SIGNATURE_SWEETS = [
     title: 'Szilvalekváros házi barátfüle',
     description: 'Omlós tészta, gazdag szilvalekvár töltelék.',
     note: 'Házias ízek',
-    image: IMAGE_URLS.home.bf,
+    image: '/sweets/sweet/barátfüle.jpg',
     alt: 'Szilvalekváros házi barátfüle',
   },
   {
     title: 'Sós-sajtos falatkák',
     description:
       'Házi perec · sós és sajtos stangli · sörkifli · sajtos tallér · pogácsák',
-    image: IMAGE_URLS.home.sos,
+    image: '/sweets/savory/stangli.jpg',
     alt: 'Sós falatkák',
   },
 ];
@@ -47,7 +47,7 @@ const SERVICE_STEPS = [
   {
     title: 'Kézműves elkészítés',
     description:
-      'A rendezvényt megelőző napon készül minden frissen – a kiszállítást, összeszerelést is vállaljuk.',
+      'A rendezvényt megelőző napon készül minden frissen, kézzel, szeretettel a műhelyünkben.',
   },
   {
     title: 'Gondoskodó jelenlét',
@@ -218,7 +218,7 @@ export default function Home() {
                   key={step.title}
                   className="rounded-[2.5rem] border border-primary-brown/15 bg-[#fff7ef] p-6 shadow-[0_28px_80px_-50px_rgba(89,51,30,0.45)]"
                 >
-                  <div className="flex items-start gap-4">
+                  <div className="flex items-center gap-4">
                     <span className="mt-1 flex h-10 w-10 flex-none items-center justify-center rounded-full border border-primary-brown/20 bg-primary-brown/10 font-serif text-lg text-primary-brown/70">
                       {String(index + 1).padStart(2, '0')}
                     </span>
@@ -270,8 +270,7 @@ export default function Home() {
           </h2>
           <p className="max-w-3xl text-base leading-relaxed text-primary-brown/80 sm:text-lg">
             Írj néhány sort az alkalomról, küldj fotót az elképzeléseidről, és
-            mi összeállítjuk a személyre szabott desszertasztalt. Szállítással,
-            dekorációval, mosolygós felszolgálással együtt.
+            mi összeállítjuk a személyre szabott desszertasztalt.
           </p>
 
           <div className="flex flex-col items-center gap-4 text-sm uppercase tracking-[0.32em] text-primary-brown/70 sm:flex-row sm:gap-6">

@@ -24,15 +24,15 @@ const MENU_ITEMS: MenuItem[] = [
   {
     label: 'ESEMÉNYEK',
     children: [
-      { label: 'Kóstolók', href: '/events/kostolok' },
-      { label: 'Lakossági események', href: '/events/lakossagi' },
+      { label: 'Kóstolók', href: '/events/tastings' },
+      { label: 'Lakossági események', href: '/events/public-events' },
     ],
   },
   {
     label: 'SÜTEMÉNYEK',
     children: [
-      { label: 'Sós sütemények', href: '/sweets/sos' },
-      { label: 'Édes sütemények', href: '/sweets/edes' },
+      { label: 'Sós sütemények', href: '/sweets/savory' },
+      { label: 'Édes sütemények', href: '/sweets/sweet' },
     ],
   },
   { label: 'GALÉRIA', href: '/gallery' },
@@ -40,8 +40,8 @@ const MENU_ITEMS: MenuItem[] = [
   {
     label: 'MENTES SÜTEMÉNYEK',
     children: [
-      { label: 'Cukormentes', href: '/sweets/mentes/cukormentes' },
-      { label: 'Tejmentes', href: '/sweets/mentes/tejmentes' },
+      { label: 'Cukormentes', href: '/sweets/free-from/sugar-free' },
+      { label: 'Tejmentes', href: '/sweets/free-from/dairy-free' },
     ],
   },
 ];
@@ -487,7 +487,7 @@ export default function Navigation() {
 
                 {hasChildren && item.children && (
                   <div
-                    className={`absolute left-1/2 top-full z-30 mt-1 -translate-x-1/2 transition-all duration-200 ease-out ${
+                    className={`absolute left-1/2 top-full z-30 -translate-x-1/2 pt-1 transition-all duration-200 ease-out ${
                       submenuIsActive
                         ? 'pointer-events-auto opacity-100'
                         : 'pointer-events-none opacity-0'
