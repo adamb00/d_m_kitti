@@ -42,7 +42,7 @@ export default function AboutUs() {
           className="h-auto w-full object-contain"
         />
         <div
-          className="pointer-events-none absolute inset-0 bg-gradient-to-b from-primary-brown/35 via-primary-brown/15 to-transparent"
+          className="pointer-events-none absolute inset-0 bg-linear-to-b from-primary-brown/35 via-primary-brown/15 to-transparent"
           aria-hidden
         />
       </section>
@@ -76,7 +76,7 @@ export default function AboutUs() {
 
           <aside className="grid gap-6 sm:grid-cols-2 lg:grid-cols-1">
             <div className="relative overflow-hidden rounded-[2.75rem] border border-primary-brown/15 bg-[#fff7ef] shadow-[0_30px_80px_-45px_rgba(89,51,30,0.5)]">
-              <div className="relative aspect-[4/5]">
+              <div className="relative aspect-4/5">
                 <Image
                   src={IMAGE_URLS.about.kittiPortrait}
                   alt="Domján-Molnár Kitti portréja"
@@ -90,7 +90,7 @@ export default function AboutUs() {
             </div>
 
             <div className="relative overflow-hidden rounded-[2.5rem] border border-primary-brown/15 bg-[#fff7ef] shadow-[0_25px_70px_-45px_rgba(89,51,30,0.4)]">
-              <div className="relative aspect-[5/4]">
+              <div className="relative aspect-5/4">
                 <Image
                   src={IMAGE_URLS.about.pite}
                   alt="Házi pite"
@@ -103,7 +103,7 @@ export default function AboutUs() {
             </div>
 
             <div className="relative overflow-hidden rounded-[2.5rem] border border-primary-brown/15 bg-[#fff7ef] shadow-[0_25px_70px_-45px_rgba(89,51,30,0.4)] sm:col-span-2 lg:col-span-1">
-              <div className="relative aspect-[5/4]">
+              <div className="relative aspect-5/4">
                 <Image
                   src={IMAGE_URLS.about.workshopImage}
                   alt="Családi pillanat a Barátfüle konyhájában"

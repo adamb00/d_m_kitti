@@ -2,7 +2,7 @@ import type { Metadata } from 'next';
 
 const normalizeSiteUrl = (rawUrl?: string) => {
   if (!rawUrl) {
-    return 'http://localhost:3000';
+    return 'https://www.hazisutemenyekuzlete.hu';
   }
 
   const normalized = rawUrl.replace(/\/+$/, '');
@@ -38,6 +38,7 @@ export const createPageMetadata = ({
   keywords,
 }: PageMetadataOptions): Metadata => {
   const images = [image ?? DEFAULT_OG_IMAGE];
+  const resolvedTitle = title ?? undefined;
 
   return {
     title,
@@ -47,7 +48,7 @@ export const createPageMetadata = ({
       canonical: path,
     },
     openGraph: {
-      title,
+      title: resolvedTitle,
       description,
       url: path,
       siteName: SITE_NAME,
@@ -57,7 +58,7 @@ export const createPageMetadata = ({
     },
     twitter: {
       card: 'summary_large_image',
-      title,
+      title: resolvedTitle,
       description,
       images,
     },
