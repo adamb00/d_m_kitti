@@ -1,4 +1,12 @@
 import { ALLERGENS } from '@/app/sweets/_data/allergens';
+import { createPageMetadata } from '@/lib/seo';
+
+export const metadata = createPageMetadata({
+  title: 'Allergének',
+  description:
+    'Allergének részletes listája a 1169/2011 EU rendelet alapján, kivételek megjelölésével.',
+  path: '/sweets/allergens',
+});
 
 export default function AllergenPage() {
   return (

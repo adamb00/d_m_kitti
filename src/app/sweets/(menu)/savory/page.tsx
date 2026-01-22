@@ -1,5 +1,13 @@
 import Image from 'next/image';
 import AllergenGuide from '@/app/sweets/_components/AllergenGuide';
+import { createPageMetadata } from '@/lib/seo';
+
+export const metadata = createPageMetadata({
+  title: 'Sós sütemények',
+  description:
+    'Sós sütemények, pogácsák és sós falatok árlistával, rendezvényekre és alkalmakra.',
+  path: '/sweets/savory',
+});
 
 type Price = {
   value: number;
@@ -55,7 +63,7 @@ const SAVORY_ITEMS: MenuItem[] = [
   {
     name: 'Pizzás csiga',
     allergens: [1, 3, 7, 12],
-    price: { value: 4500, unit: 'Ft/kg' },
+    price: { value: 5200, unit: 'Ft/kg' },
     image: '/sweets/savory/pizzás_csiga.jpg',
   },
   {
@@ -66,7 +74,7 @@ const SAVORY_ITEMS: MenuItem[] = [
   {
     name: 'Mini sajtroló',
     allergens: [1, 3, 7],
-    price: { value: 6000, unit: 'Ft/kg' },
+    price: { value: 6200, unit: 'Ft/kg' },
     image: '/sweets/savory/mini_sajtroló.jpg',
   },
   {
@@ -86,7 +94,7 @@ const SAVORY_ITEMS: MenuItem[] = [
     price: { value: 6000, unit: 'Ft/kg' },
   },
   {
-    name: 'Virslis kifli',
+    name: 'Virslis falatka',
     allergens: [1, 3, 10, 11],
     price: { value: 4500, unit: 'Ft/kg' },
     image: '/sweets/savory/virslis_falatka.jpg',

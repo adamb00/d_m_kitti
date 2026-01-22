@@ -1,3 +1,12 @@
+import { createPageMetadata } from '@/lib/seo';
+
+export const metadata = createPageMetadata({
+  title: 'Cukormentes sütemények',
+  description:
+    'Cukormentes sütemények és ízek, rendelhető házi desszertek cukormentes kínálatban.',
+  path: '/sweets/free-from/sugar-free',
+});
+
 const SWEET_CRESCENTS = [
   'Almás',
   'Túrós',

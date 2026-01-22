@@ -12,11 +12,7 @@ const CONTACT_SECTIONS = [
     description:
       'Esküvő, céges esemény vagy születésnap? Segítünk személyre szabott desszertasztal összeállításában, kiszállítással és tálalással.',
   },
-  {
-    title: 'Catering és kávézók',
-    description:
-      'Kávézók, coworking terek vagy irodák részére rendszeres szállítást vállalunk, napi friss házi süteményekkel.',
-  },
+
   {
     title: 'Egyedi megrendelés',
     description:
@@ -97,12 +93,11 @@ export default function ContactPage() {
           </h1>
           <p className="max-w-3xl text-base leading-relaxed text-primary-brown/80 sm:text-lg">
             Írd meg nekünk, milyen alkalomra készülsz, és néhány órán belül
-            felvesszük veled a kapcsolatot a részletekkel. A sütemények mellé
-            kérhetsz díszítést, kiszállítást vagy teljes desszert stylingot is.
+            felvesszük veled a kapcsolatot a részletekkel.
           </p>
         </div>
 
-        <div className="grid w-full gap-6 sm:grid-cols-2 lg:grid-cols-3">
+        <div className="grid w-full gap-6 sm:grid-cols-2">
           {CONTACT_SECTIONS.map((item) => (
             <div
               key={item.title}

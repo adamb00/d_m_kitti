@@ -1,7 +1,21 @@
 import Image from 'next/image';
 import Link from 'next/link';
 import { IMAGE_URLS } from '@/lib/image-urls';
+import {
+  DEFAULT_DESCRIPTION,
+  DEFAULT_OG_IMAGE,
+  SITE_NAME,
+  SITE_URL,
+  createPageMetadata,
+} from '@/lib/seo';
 import Header from './_components/Header';
+
+export const metadata = createPageMetadata({
+  title: { absolute: SITE_NAME },
+  description: DEFAULT_DESCRIPTION,
+  path: '/',
+  image: IMAGE_URLS.home.heritageWorkshop,
+});
 
 const HERITAGE_POINTS = [
   'A nagyi receptfüzete ma is ott van a pult mögött, tele kézzel írt megjegyzésekkel.',
@@ -13,7 +27,7 @@ const SIGNATURE_SWEETS = [
   {
     title: 'Házi túrós lepény',
     description: 'Vajas tészta, házi, friss túrókrém – a nagymama kedvence.',
-    image: '/sweets/sweet/túrós_lepény.jpg',
+    image: '/sweets/sweet/lepeny.png',
     alt: 'Túrós pite',
     note: 'Ahogy a nagyi készíti',
   },
@@ -21,14 +35,14 @@ const SIGNATURE_SWEETS = [
     title: 'Szilvalekváros házi barátfüle',
     description: 'Omlós tészta, gazdag szilvalekvár töltelék.',
     note: 'Házias ízek',
-    image: '/sweets/sweet/barátfüle.jpg',
+    image: '/sweets/sweet/baratfule.png',
     alt: 'Szilvalekváros házi barátfüle',
   },
   {
     title: 'Sós-sajtos falatkák',
     description:
       'Házi perec · sós és sajtos stangli · sörkifli · sajtos tallér · pogácsák',
-    image: '/sweets/savory/stangli.jpg',
+    image: '/sweets/savory/stangli.png',
     alt: 'Sós falatkák',
   },
 ];
@@ -42,17 +56,12 @@ const SERVICE_STEPS = [
   {
     title: 'Desszertasztal megtervezése',
     description:
-      'A teljes dekorációt, eszközparkot és a mennyiségeket is megtervezzük. Gondolunk az ételérzékenyekre is.',
+      'Segítünk a sütemények kiválasztásában és a mennyiségeket is megtervezzük. Gondolunk az ételérzékenyekre is.',
   },
   {
     title: 'Kézműves elkészítés',
     description:
-      'A rendezvényt megelőző napon készül minden frissen, kézzel, szeretettel a műhelyünkben.',
-  },
-  {
-    title: 'Gondoskodó jelenlét',
-    description:
-      'Az esemény napján segítünk a tálalással, újratöltéssel, hogy az asztal a fináléig csalogató maradjon.',
+      'A rendezvény napján készül minden frissen, kézzel, szeretettel a műhelyünkben.',
   },
 ];
 
@@ -60,10 +69,29 @@ export default function Home() {
   const contactPhone = process.env.NEXT_PUBLIC_CONTACT_PHONE ?? '';
   const contactEmail = process.env.NEXT_PUBLIC_CONTACT_EMAIL ?? '';
   const phoneHref = contactPhone.replace(/\s+/g, '');
+  const ogImage = IMAGE_URLS.home.heritageWorkshop || DEFAULT_OG_IMAGE;
+  const ogImageUrl = ogImage.startsWith('http')
+    ? ogImage
+    : new URL(ogImage, SITE_URL).toString();
+  const businessJsonLd = {
+    '@context': 'https://schema.org',
+    '@type': 'Bakery',
+    name: SITE_NAME,
+    url: SITE_URL,
+    description: DEFAULT_DESCRIPTION,
+    areaServed: 'Hódmezővásárhely',
+    image: [ogImageUrl],
+    ...(contactPhone ? { telephone: contactPhone } : {}),
+    ...(contactEmail ? { email: contactEmail } : {}),
+  };
 
   return (
     <div className="order-3 flex flex-col">
       <Header />
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(businessJsonLd) }}
+      />
 
       <section className="relative overflow-hidden bg-[#f8efe4] py-16 text-primary-brown lg:py-20">
         <div className="pointer-events-none absolute inset-0 bg-[radial-gradient(circle_at_top_left,rgba(217,180,145,0.25),transparent_55%),radial-gradient(circle_at_bottom_right,rgba(255,255,255,0.7),transparent_55%)]" />
@@ -86,14 +114,6 @@ export default function Home() {
                 egy csipet nosztalgia.
               </p>
             </div>
-
-            {/* <blockquote className="rounded-[2.5rem] border-l-4 border-primary-brown/25 bg-[#fff2e5] px-7 py-5 font-serif text-lg italic text-primary-brown/80 shadow-[0_20px_60px_-40px_rgba(89,51,30,0.45)]">
-              „Minden tepsit úgy töltünk meg, mintha a család várna rá vasárnap
-              délután.”
-              <cite className="mt-3 block text-xs uppercase tracking-[0.3em] text-primary-brown/60">
-                Domján-Molnár Kitti
-              </cite>
-            </blockquote> */}
 
             <ul className="space-y-3 text-sm leading-relaxed text-primary-brown/75 sm:text-base">
               {HERITAGE_POINTS.map((point) => (
@@ -203,14 +223,21 @@ export default function Home() {
               Rendezvényekre hangolva
             </span>
             <h2 className="font-serif text-3xl leading-tight sm:text-4xl">
-              Teljes körű desszertasztal, akár az első ötlettől a tálalásig.
+              Teljes körű desszertasztal, akár az első ötlettől.
             </h2>
             <p className="text-base leading-relaxed text-primary-brown/80 sm:text-lg">
               Az esemény minden részletéhez igazítjuk a süteményeket: színek,
               textúrák, szezonális alapanyagok, ételérzékenységek. A Barátfüle
-              csapata a csomagolástól a dekorációig gondoskodik róla, hogy a
-              vendégek mosollyal távozzanak.
+              csapata gondoskodik róla, hogy a vendégek mosollyal távozzanak.
             </p>
+            <div className="flex flex-wrap gap-3">
+              <span className="inline-flex items-center rounded-full border border-primary-brown/25 bg-[#fff7ef] px-5 py-2 text-xs uppercase tracking-[0.35em] text-primary-brown/65 shadow-[0_20px_45px_-35px_rgba(89,51,30,0.45)]">
+                Süteménykészítés akár 300 főig
+              </span>
+              <span className="inline-flex items-center rounded-full border border-primary-brown/25 bg-[#fff7ef] px-5 py-2 text-xs uppercase tracking-[0.35em] text-primary-brown/65 shadow-[0_20px_45px_-35px_rgba(89,51,30,0.45)]">
+                Egyedi megrendelés pár tálcától
+              </span>
+            </div>
 
             <ul className="space-y-4">
               {SERVICE_STEPS.map((step, index) => (
@@ -270,7 +297,9 @@ export default function Home() {
           </h2>
           <p className="max-w-3xl text-base leading-relaxed text-primary-brown/80 sm:text-lg">
             Írj néhány sort az alkalomról, küldj fotót az elképzeléseidről, és
-            mi összeállítjuk a személyre szabott desszertasztalt.
+            mi összeállítjuk a személyre szabott desszertasztalt. Ha csak néhány
+            tálcányi desszertet szeretnél egy családi alkalomra, abban is
+            segítünk.
           </p>
 
           <div className="flex flex-col items-center gap-4 text-sm uppercase tracking-[0.32em] text-primary-brown/70 sm:flex-row sm:gap-6">

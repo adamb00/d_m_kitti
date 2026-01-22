@@ -21,13 +21,13 @@ const MENU_ITEMS: MenuItem[] = [
   { label: 'AKCIÓ', important: true, href: '/action' },
   { label: 'KEZDŐLAP', href: '/' },
   { label: 'BEMUTATKOZÁS', href: '/about-us' },
-  {
-    label: 'ESEMÉNYEK',
-    children: [
-      { label: 'Kóstolók', href: '/events/tastings' },
-      { label: 'Lakossági események', href: '/events/public-events' },
-    ],
-  },
+  // {
+  //   label: 'ESEMÉNYEK',
+  //   children: [
+  //     { label: 'Kóstolók', href: '/events/tastings' },
+  //     { label: 'Lakossági események', href: '/events/public-events' },
+  //   ],
+  // },
   {
     label: 'SÜTEMÉNYEK',
     children: [
@@ -42,6 +42,7 @@ const MENU_ITEMS: MenuItem[] = [
     children: [
       { label: 'Cukormentes', href: '/sweets/free-from/sugar-free' },
       { label: 'Tejmentes', href: '/sweets/free-from/dairy-free' },
+      { label: 'Tojásmentes', href: '/sweets/free-from/egg-free' },
     ],
   },
 ];

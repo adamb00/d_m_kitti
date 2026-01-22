@@ -1,5 +1,14 @@
 import Image from 'next/image';
 import { IMAGE_URLS } from '@/lib/image-urls';
+import { createPageMetadata } from '@/lib/seo';
+
+export const metadata = createPageMetadata({
+  title: 'Bemutatkozás',
+  description:
+    'Ismerd meg Domján-Molnár Kittit és a Barátfüle történetét, a családi recepteket és a kézműves sütés hagyományát.',
+  path: '/about-us',
+  image: IMAGE_URLS.about.baratfuleSign,
+});
 
 const paragraphs = [
   'Domján-Molnár Kitti vagyok a Barátfüle Házi Sütemények Üzletének vezetője.',

@@ -100,6 +100,9 @@ export default function Header() {
               Hívj minket: {contactPhone}
             </a>
           )}
+          <span className="inline-flex w-fit items-center rounded-full border border-primary-brown/25 bg-[#fff7ef] px-5 py-2 text-xs uppercase tracking-[0.35em] text-primary-brown/65 shadow-[0_20px_45px_-35px_rgba(89,51,30,0.45)]">
+            Süteménykészítés akár 300 főig
+          </span>
         </div>
 
         <div className="relative flex flex-1 items-center justify-center">

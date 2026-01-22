@@ -1,5 +1,13 @@
 import Image from 'next/image';
 import AllergenGuide from '@/app/sweets/_components/AllergenGuide';
+import { createPageMetadata } from '@/lib/seo';
+
+export const metadata = createPageMetadata({
+  title: 'Édes sütemények',
+  description:
+    'Édes házi sütemények és klasszikus szeletek árlistával, családi alkalmakra és rendezvényekre.',
+  path: '/sweets/sweet',
+});
 
 type Price = {
   value: number;
@@ -131,7 +139,7 @@ const SWEET_SECTIONS: Section[] = [
       },
       {
         name: 'Rétes',
-        allergens: [1, 3],
+        allergens: [1, 3, '(7)'],
         price: { value: 4500, unit: 'Ft/kg' },
         flavors: ['Almás', 'Túrós', 'Mákos', 'Meggyes', 'stb...'],
         image: '/sweets/sweet/túrós-áfonyás_rétes.jpg',
@@ -139,7 +147,7 @@ const SWEET_SECTIONS: Section[] = [
 
       {
         name: 'Töltött kiskifli',
-        allergens: [1, 3],
+        allergens: [1, 3, '(7)'],
         price: { value: 4500, unit: 'Ft/kg' },
         flavors: ['Lekváros', 'Almás', 'Túrós', 'stb...'],
         image: '/sweets/sweet/édes_töltött_kiskifli.jpg',
@@ -214,7 +222,7 @@ const SWEET_SECTIONS: Section[] = [
       {
         name: 'Kürtőskalács kifli',
         allergens: [1, 3, 7],
-        price: { value: 4500, unit: 'Ft/kg' },
+        price: { value: 5200, unit: 'Ft/kg' },
       },
       {
         name: 'Reszelt túrós',
@@ -231,19 +239,19 @@ const SWEET_SECTIONS: Section[] = [
       {
         name: 'Puncs szelet',
         allergens: [1, 3, 7],
-        price: { value: 5200, unit: 'Ft/kg' },
+        price: { value: 4500, unit: 'Ft/kg' },
         image: '/sweets/sweet/puncs_szelet.jpg',
       },
       {
         name: 'Túrós bukta',
         allergens: [1, 3, 7],
-        price: { value: 4500, unit: 'Ft/kg' },
+        price: { value: 5200, unit: 'Ft/kg' },
         image: '/sweets/sweet/túrós_bukta.jpg',
       },
       {
         name: 'Bukta',
         allergens: [1, 3, 7, 12],
-        price: { value: 4500, unit: 'Ft/kg' },
+        price: { value: 5200, unit: 'Ft/kg' },
         flavors: ['Nutellás', 'Lekváros', 'stb...'],
         image: '/sweets/sweet/túrós_bukta.jpg',
       },

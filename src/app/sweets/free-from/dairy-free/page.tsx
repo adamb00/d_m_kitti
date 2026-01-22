@@ -1,3 +1,12 @@
+import { createPageMetadata } from '@/lib/seo';
+
+export const metadata = createPageMetadata({
+  title: 'Tejmentes sütemények',
+  description:
+    'Tejmentes sütemények sós és édes kínálata, rendezvényekre és egyedi megrendelésre is.',
+  path: '/sweets/free-from/dairy-free',
+});
+
 const STRUDEL_FLAVORS = [
   'Almás',
   'Túrós',
@@ -59,21 +68,6 @@ const SWEET_ITEMS = [
   { name: 'Bejgli', price: '5500 Ft/kg', details: 'Mákos, diós' },
 ];
 
-const DAIRY_EGG_FREE_ITEMS = [
-  {
-    name: 'Rétes',
-    price: '4500 Ft/kg',
-    details: 'Almás, meggyes, mákos, diós-rumos',
-  },
-  {
-    name: 'Édes/sós kiskiflik rétestésztából',
-    price: '4500 Ft/kg',
-    details: 'Almás, meggyes, mákos, diós-rumos',
-  },
-  { name: 'Pizzás szál', price: '4500 Ft/kg' },
-  { name: 'Sonkás kifli', price: '4500 Ft/kg' },
-];
-
 const FLAVOR_SECTIONS = [
   { title: 'Rétesek', items: STRUDEL_FLAVORS, price: '5000 Ft/kg' },
   { title: 'Édes kiskiflik', items: SWEET_CRESCENTS, price: '5000 Ft/kg' },
@@ -104,7 +98,7 @@ export default function TejmentesPage() {
 
       <section className="relative mx-auto w-full max-w-6xl px-6 pb-16 lg:pb-20">
         <div className="flex flex-col gap-10">
-          <div>
+          {/* <div>
             <div className="mt-4 grid gap-6 lg:grid-cols-2">
               {FLAVOR_SECTIONS.map((section) => (
                 <div
@@ -125,7 +119,7 @@ export default function TejmentesPage() {
                 </div>
               ))}
             </div>
-          </div>
+          </div> */}
 
           <div>
             <div className="mt-4 grid gap-6 lg:grid-cols-2 lg:gap-8">
@@ -166,43 +160,6 @@ export default function TejmentesPage() {
             </div>
           </div>
 
-          <div className="rounded-[3rem] border border-primary-brown/15 bg-[#fff7ef] p-8 shadow-[0_35px_90px_-55px_rgba(89,51,30,0.45)]">
-            <div className="flex flex-col gap-4 text-center sm:text-left">
-              <p className="text-xs font-semibold uppercase tracking-[0.35em] text-primary-brown/60">
-                Tej-tojásmentes süteményeink
-              </p>
-              <div className="flex flex-col items-center gap-3 sm:flex-row sm:items-center">
-                <h2 className="font-serif text-2xl">
-                  Csak előrendelésre kapható!
-                </h2>
-              </div>
-            </div>
-
-            <div className="mt-6 grid gap-4 lg:grid-cols-2">
-              {DAIRY_EGG_FREE_ITEMS.map((item) => (
-                <div
-                  key={item.name}
-                  className="rounded-4xl border border-primary-brown/15 bg-white/70 px-5 py-4"
-                >
-                  <div className="flex flex-wrap items-center justify-between gap-2">
-                    <span className="text-sm font-semibold text-primary-brown">
-                      {item.name}
-                    </span>
-                    {item.price && (
-                      <span className="text-xs font-semibold uppercase tracking-[0.3em] text-primary-brown/60">
-                        {item.price}
-                      </span>
-                    )}
-                  </div>
-                  {item.details && (
-                    <p className="mt-2 text-sm text-primary-brown/75">
-                      {item.details}
-                    </p>
-                  )}
-                </div>
-              ))}
-            </div>
-          </div>
         </div>
       </section>
     </>
