@@ -66,7 +66,7 @@ export default function MapEmbed({ address, lat, lng }: MapEmbedProps) {
   }, [address, lat, lng]);
 
   return (
-    <div className="h-96 w-full overflow-hidden rounded-2xl border border-primary-beige/25">
+    <div className="h-96 w-full overflow-hidden rounded-2xl border border-primary-beige/25 z-10">
       <div ref={containerRef} className="h-full w-full" />
     </div>
   );

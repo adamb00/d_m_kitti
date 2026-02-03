@@ -173,7 +173,7 @@ export default function ContactPage() {
               </p>
             </div>
 
-            <div className="flex flex-col gap-3 text-xs uppercase tracking-[0.3em] text-primary-beige/60">
+            <div className="flex flex-col gap-3 text-xs uppercase tracking-[0.3em] text-primary-beige/60 z-10">
               <p className="text-sm leading-relaxed text-primary-beige/70">
                 {contactAddress}
               </p>

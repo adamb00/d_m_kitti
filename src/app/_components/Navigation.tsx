@@ -107,7 +107,7 @@ export default function Navigation() {
   const containerClasses = useMemo(() => {
     const base =
       'relative flex flex-col items-center justify-start overflow-hidden transition-[background-color,box-shadow] duration-300 ease-[cubic-bezier(0.16,1,0.3,1)]';
-    const closed = `sticky top-0 z-40 mx-auto w-full max-w-5xl py-2 px-4 ${
+    const closed = `sticky top-0 z-4000 mx-auto w-full max-w-5xl py-2 px-4 ${
       isScrolled
         ? 'bg-background/95 shadow-[0_12px_32px_-18px_rgba(71,41,24,0.35)] backdrop-blur'
         : 'bg-transparent'
