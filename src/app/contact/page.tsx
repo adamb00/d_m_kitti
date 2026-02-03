@@ -1,16 +1,24 @@
 'use client';
 
 import { zodResolver } from '@hookform/resolvers/zod';
+import dynamic from 'next/dynamic';
 import { Facebook, Instagram, Mail, Phone, Sparkles } from 'lucide-react';
 import { SubmitHandler, useForm } from 'react-hook-form';
 import { z } from 'zod';
 import { useState } from 'react';
 
+const MapEmbed = dynamic(() => import('./MapEmbed'), { ssr: false });
+
+const parseCoordinate = (value: string | undefined, fallback: number) => {
+  const parsed = Number(value);
+  return Number.isFinite(parsed) ? parsed : fallback;
+};
+
 const CONTACT_SECTIONS = [
   {
     title: 'Rendezvény desszertasztal',
     description:
-      'Esküvő, céges esemény vagy születésnap? Segítünk személyre szabott desszertasztal összeállításában, kiszállítással és tálalással.',
+      'Esküvő, céges esemény vagy születésnap? Segítünk személyre szabott desszertasztal összeállításában.',
   },
 
   {
@@ -46,9 +54,18 @@ const ContactFormSchema = z.object({
 type ContactFormData = z.infer<typeof ContactFormSchema>;
 
 export default function ContactPage() {
+  const contactAddress = '6800 Hódmezővásárhely, Lehel utca 4.';
   const contactPhone = process.env.NEXT_PUBLIC_CONTACT_PHONE ?? '';
   const contactEmail = process.env.NEXT_PUBLIC_CONTACT_EMAIL ?? '';
   const phoneHref = contactPhone.replace(/\s+/g, '');
+  const contactLat = parseCoordinate(
+    process.env.NEXT_PUBLIC_CONTACT_LAT,
+    46.41443688661204,
+  );
+  const contactLng = parseCoordinate(
+    process.env.NEXT_PUBLIC_CONTACT_LNG,
+    20.32328862649831,
+  );
 
   const [_, setSubmitStatus] = useState<'idle' | 'success' | 'error'>('idle');
 
@@ -71,8 +88,15 @@ export default function ContactPage() {
   const onSubmit: SubmitHandler<ContactFormData> = async (data) => {
     try {
       setSubmitStatus('idle');
-      await new Promise((resolve) => setTimeout(resolve, 500));
-      console.info('Kapott adatok:', data);
+      const response = await fetch('/api/contact', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify(data),
+      });
+
+      if (!response.ok) {
+        throw new Error('Hiba történt az üzenet küldésekor.');
+      }
       setSubmitStatus('success');
       reset();
     } catch (error) {
@@ -141,18 +165,29 @@ export default function ContactPage() {
               )}
             </div>
 
-            <div className="flex flex-col gap-3 text-xs uppercase tracking-[0.3em] text-primary-beige/60">
+            <div className="flex flex-col gap-3 text-xs uppercase tracking-[0.25em] text-primary-beige/60">
               <span>Nyitvatartás</span>
               <p className="text-sm leading-relaxed text-primary-beige/70">
-                Hétfő–Péntek: 08:00 – 18:00 <br />
-                Szombat: 08:00 – 14:00 <br />
+                Hétfő és szombat: 06:00 – 12:00 <br />
+                Kedd, szerda, csütörtök, péntek: 06:00 – 17:00 <br />
                 Vasárnap: zárva, de egyedi rendezvényre egyeztetünk.
               </p>
             </div>
 
+            <div className="flex flex-col gap-3 text-xs uppercase tracking-[0.3em] text-primary-beige/60">
+              <p className="text-sm leading-relaxed text-primary-beige/70">
+                {contactAddress}
+              </p>
+              <MapEmbed
+                address={contactAddress}
+                lat={contactLat}
+                lng={contactLng}
+              />
+            </div>
+
             <div className="flex flex-col gap-3 text-xs uppercase tracking-[0.2em] text-primary-beige/70 sm:flex-row sm:tracking-[0.3em]">
               <a
-                href="https://www.facebook.com"
+                href="https://www.facebook.com/profile.php?id=100064197902848"
                 target="_blank"
                 rel="noreferrer"
                 className="flex items-center gap-2 rounded-full border border-primary-beige/25 px-4 py-3 transition-colors hover:bg-primary-beige/15 hover:text-primary-beige"
@@ -161,13 +196,32 @@ export default function ContactPage() {
                 Facebook
               </a>
               <a
-                href="https://www.instagram.com"
+                href="https://www.instagram.com/baratfulehazisutik/?hl=en"
                 target="_blank"
                 rel="noreferrer"
                 className="flex items-center gap-2 rounded-full border border-primary-beige/25 px-4 py-3 transition-colors hover:bg-primary-beige/15 hover:text-primary-beige"
               >
                 <Instagram className="h-4 w-4" />
                 Instagram
+              </a>
+              <a
+                href="https://www.tiktok.com/@bartfle.hzi.stemn?_r=1&_t=ZN-93aHN1I5K2p"
+                target="_blank"
+                rel="noreferrer"
+                className="flex items-center gap-2 rounded-full border border-primary-beige/25 px-4 py-3 transition-colors hover:bg-primary-beige/15 hover:text-primary-beige"
+              >
+                <svg
+                  xmlns="http://www.w3.org/2000/svg"
+                  viewBox="0 0 24 24"
+                  width="24"
+                  height="24"
+                  fill="currentColor"
+                  style={{ opacity: 1 }}
+                  className="h-4 w-4"
+                >
+                  <path d="M20.357 7.75a.537.537 0 0 0-.495-.516a4.7 4.7 0 0 1-2.415-.938a4.85 4.85 0 0 1-1.887-3.3a.54.54 0 0 0-.517-.496h-2.108a.517.517 0 0 0-.517.527v12.59a2.794 2.794 0 0 1-2.974 2.762a2.815 2.815 0 0 1-2.51-3.711A2.836 2.836 0 0 1 9.93 12.78a.506.506 0 0 0 .558-.506V9.807s-.896-.063-1.202-.063a5.27 5.27 0 0 0-4.101 1.93a5.8 5.8 0 0 0-1.37 2.52a5.86 5.86 0 0 0 2.14 6.072A5.93 5.93 0 0 0 9.591 21.5q.451 0 .896-.063A5.95 5.95 0 0 0 13.8 19.78a5.84 5.84 0 0 0 1.75-4.133V8.71a7.84 7.84 0 0 0 4.218 1.613a.517.517 0 0 0 .548-.527V7.751z" />
+                </svg>
+                TikTok
               </a>
             </div>
           </div>

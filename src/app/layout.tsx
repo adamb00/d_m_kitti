@@ -1,5 +1,6 @@
 import type { Metadata } from 'next';
 import '@/app/_style/globals.css';
+import 'leaflet/dist/leaflet.css';
 import {
   DEFAULT_DESCRIPTION,
   DEFAULT_OG_IMAGE,

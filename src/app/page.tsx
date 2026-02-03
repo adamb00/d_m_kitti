@@ -2,11 +2,11 @@ import Image from 'next/image';
 import Link from 'next/link';
 import { IMAGE_URLS } from '@/lib/image-urls';
 import {
+  createPageMetadata,
   DEFAULT_DESCRIPTION,
   DEFAULT_OG_IMAGE,
   SITE_NAME,
   SITE_URL,
-  createPageMetadata,
 } from '@/lib/seo';
 import Header from './_components/Header';
 
@@ -19,14 +19,14 @@ export const metadata = createPageMetadata({
 
 const HERITAGE_POINTS = [
   'A nagyi receptfüzete ma is ott van a pult mögött, tele kézzel írt megjegyzésekkel.',
-  'Őstermelői gyümölcsöket, friss tejtermékeket és jó minőségű vajat használunk – adalékok nélkül.',
+  'Friss gyümölcsöket és házi tejtermékeket használunk – adalékok nélkül.',
   'Minden desszertet úgy díszítünk, mintha a vasárnapi családi asztalra készülne.',
 ];
 
 const SIGNATURE_SWEETS = [
   {
     title: 'Házi túrós lepény',
-    description: 'Vajas tészta, házi, friss túrókrém – a nagymama kedvence.',
+    description: 'Zsíros tészta, házi, friss túrókrém – a nagymama kedvence.',
     image: '/sweets/sweet/lepeny.png',
     alt: 'Túrós pite',
     note: 'Ahogy a nagyi készíti',

@@ -48,7 +48,7 @@ export default function Footer() {
               Kövess minket
             </h3>
             <a
-              href="https://www.facebook.com"
+              href="https://www.facebook.com/profile.php?id=100064197902848"
               target="_blank"
               rel="noreferrer"
               className="transition-colors hover:text-primary-beige"
@@ -56,12 +56,20 @@ export default function Footer() {
               Facebook
             </a>
             <a
-              href="https://www.instagram.com"
+              href="https://www.instagram.com/baratfulehazisutik/?hl=en"
               target="_blank"
               rel="noreferrer"
               className="transition-colors hover:text-primary-beige"
             >
               Instagram
+            </a>
+            <a
+              href="https://www.tiktok.com/@bartfle.hzi.stemn?_r=1&_t=ZN-93aHN1I5K2p"
+              target="_blank"
+              rel="noreferrer"
+              className="transition-colors hover:text-primary-beige"
+            >
+              TikTok
             </a>
           </div>
         </div>

@@ -19,12 +19,12 @@ const PHOTOS: GalleryPhoto[] = [
     height: 3000,
     alt: 'Esküvői desszertasztal vintage hangulatban',
   },
-  {
-    src: IMAGE_URLS.gallery[1],
-    width: 3525,
-    height: 3000,
-    alt: 'Friss gyümölcsös tarte válogatás',
-  },
+  // {
+  //   src: IMAGE_URLS.gallery[1],
+  //   width: 3525,
+  //   height: 3000,
+  //   alt: 'Friss gyümölcsös tarte válogatás',
+  // },
   {
     src: IMAGE_URLS.gallery[2],
     width: 4000,

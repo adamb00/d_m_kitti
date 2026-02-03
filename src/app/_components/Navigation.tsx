@@ -21,13 +21,7 @@ const MENU_ITEMS: MenuItem[] = [
   { label: 'AKCIÓ', important: true, href: '/action' },
   { label: 'KEZDŐLAP', href: '/' },
   { label: 'BEMUTATKOZÁS', href: '/about-us' },
-  // {
-  //   label: 'ESEMÉNYEK',
-  //   children: [
-  //     { label: 'Kóstolók', href: '/events/tastings' },
-  //     { label: 'Lakossági események', href: '/events/public-events' },
-  //   ],
-  // },
+
   {
     label: 'SÜTEMÉNYEK',
     children: [
@@ -35,8 +29,6 @@ const MENU_ITEMS: MenuItem[] = [
       { label: 'Édes sütemények', href: '/sweets/sweet' },
     ],
   },
-  { label: 'GALÉRIA', href: '/gallery' },
-  { label: 'KAPCSOLAT', href: '/contact' },
   {
     label: 'MENTES SÜTEMÉNYEK',
     children: [
@@ -45,6 +37,8 @@ const MENU_ITEMS: MenuItem[] = [
       { label: 'Tojásmentes', href: '/sweets/free-from/egg-free' },
     ],
   },
+  { label: 'GALÉRIA', href: '/gallery' },
+  { label: 'KAPCSOLAT', href: '/contact' },
 ];
 
 const formatPhoneNumber = (raw: string) => {
