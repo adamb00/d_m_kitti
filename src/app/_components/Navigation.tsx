@@ -18,7 +18,7 @@ type MenuItem = {
 };
 
 const MENU_ITEMS: MenuItem[] = [
-  { label: 'AKCIÓ', important: true, href: '/action' },
+  // { label: 'AKCIÓ', important: true, href: '/action' },
   { label: 'KEZDŐLAP', href: '/' },
   { label: 'BEMUTATKOZÁS', href: '/about-us' },
 
