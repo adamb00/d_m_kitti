@@ -1,11 +1,11 @@
 'use client';
 
 import { zodResolver } from '@hookform/resolvers/zod';
-import dynamic from 'next/dynamic';
 import { Facebook, Instagram, Mail, Phone, Sparkles } from 'lucide-react';
 import { SubmitHandler, useForm } from 'react-hook-form';
 import { z } from 'zod';
 import { useState } from 'react';
+import dynamic from 'next/dynamic';
 
 const MapEmbed = dynamic(() => import('./MapEmbed'), { ssr: false });
 
@@ -100,7 +100,6 @@ export default function ContactPage() {
       setSubmitStatus('success');
       reset();
     } catch (error) {
-      console.error(error);
       setSubmitStatus('error');
     }
   };
