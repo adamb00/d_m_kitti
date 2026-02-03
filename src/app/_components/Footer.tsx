@@ -80,12 +80,6 @@ export default function Footer() {
           <span>
             © {new Date().getFullYear()} Barátfüle · Minden jog fenntartva
           </span>
-          <a
-            href="#"
-            className="transition-colors hover:text-primary-beige md:text-right"
-          >
-            Adatkezelési tájékoztató
-          </a>
         </div>
       </div>
     </footer>
