@@ -12,62 +12,39 @@ type GalleryPhoto = {
   alt: string;
 };
 
-const PHOTOS: GalleryPhoto[] = [
-  {
-    src: IMAGE_URLS.gallery[0],
-    width: 4000,
-    height: 3000,
-    alt: 'Esküvői desszertasztal vintage hangulatban',
-  },
-  // {
-  //   src: IMAGE_URLS.gallery[1],
-  //   width: 3525,
-  //   height: 3000,
-  //   alt: 'Friss gyümölcsös tarte válogatás',
-  // },
-  {
-    src: IMAGE_URLS.gallery[2],
-    width: 4000,
-    height: 3000,
-    alt: 'Csokoládés szeletek karamell öntettel',
-  },
-  {
-    src: IMAGE_URLS.gallery[3],
-    width: 4000,
-    height: 3000,
-    alt: 'Esküvői torta vadvirág díszekkel',
-  },
-  {
-    src: IMAGE_URLS.gallery[4],
-    width: 3000,
-    height: 4000,
-    alt: 'Desszertasztal arany részletekkel',
-  },
-  {
-    src: IMAGE_URLS.gallery[5],
-    width: 4000,
-    height: 3000,
-    alt: 'Sós aprósütemények ünnepi tálalásban',
-  },
-  {
-    src: IMAGE_URLS.gallery[6],
-    width: 3000,
-    height: 3128,
-    alt: 'Kávé mellé kínált süteményválogatás',
-  },
-  {
-    src: IMAGE_URLS.gallery[7],
-    width: 4000,
-    height: 3000,
-    alt: 'Candy bar rózsaszín részletekkel',
-  },
-  {
-    src: IMAGE_URLS.gallery[8],
-    width: 3000,
-    height: 4000,
-    alt: 'Barátfüle sütemények fa tálon',
-  },
+const GALLERY_SPECS: Array<Omit<GalleryPhoto, 'src'>> = [
+  { width: 3024, height: 3024, alt: 'Galéria kép 1' },
+  { width: 4000, height: 3000, alt: 'Galéria kép 2' },
+  { width: 4000, height: 3000, alt: 'Galéria kép 3' },
+  { width: 3000, height: 4000, alt: 'Galéria kép 4' },
+  { width: 3000, height: 4000, alt: 'Galéria kép 5' },
+  { width: 3000, height: 3000, alt: 'Galéria kép 6' },
+  { width: 3000, height: 3000, alt: 'Galéria kép 7' },
+  { width: 1154, height: 1731, alt: 'Galéria kép 8' },
+  { width: 3365, height: 5047, alt: 'Galéria kép 9' },
+  { width: 1080, height: 1620, alt: 'Galéria kép 10' },
+  { width: 1080, height: 1620, alt: 'Galéria kép 11' },
+  { width: 1080, height: 1620, alt: 'Galéria kép 12' },
+  { width: 1080, height: 1061, alt: 'Galéria kép 13' },
+  { width: 1080, height: 1735, alt: 'Galéria kép 14' },
+  { width: 1080, height: 1376, alt: 'Galéria kép 15' },
+  { width: 1080, height: 1300, alt: 'Galéria kép 16' },
+  { width: 3000, height: 4000, alt: 'Galéria kép 17' },
+  { width: 3000, height: 4000, alt: 'Galéria kép 18' },
+  { width: 4000, height: 3000, alt: 'Galéria kép 19' },
+  { width: 4000, height: 3000, alt: 'Galéria kép 20' },
+  { width: 4000, height: 3000, alt: 'Galéria kép 21' },
+  { width: 4000, height: 3000, alt: 'Galéria kép 22' },
+  { width: 4000, height: 3000, alt: 'Galéria kép 23' },
+  { width: 4000, height: 3000, alt: 'Galéria kép 24' },
+  { width: 4000, height: 3000, alt: 'Galéria kép 25' },
+  { width: 3000, height: 4000, alt: 'Galéria kép 26' },
 ];
+
+const PHOTOS: GalleryPhoto[] = IMAGE_URLS.gallery.map((src, index) => ({
+  src,
+  ...GALLERY_SPECS[index],
+}));
 
 const renderImage: RenderImage<GalleryPhoto> = (
   { alt = '', title, sizes, className, style, loading: _loading, ...props },

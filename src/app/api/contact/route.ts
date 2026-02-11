@@ -31,11 +31,19 @@ export async function POST(request: Request) {
     }
   }
 
-  const host = getEnv('SMTP_HOST');
+  const mailjetKey = getEnv('MAILJET_API_KEY');
+  const mailjetSecret = getEnv('MAILJET_SECRET_KEY');
+  const host =
+    getEnv('SMTP_HOST') ||
+    (mailjetKey && mailjetSecret ? 'in-v3.mailjet.com' : '');
   const port = Number(getEnv('SMTP_PORT') || '587');
-  const user = getEnv('SMTP_USER');
-  const pass = getEnv('SMTP_PASS');
-  const from = getEnv('SMTP_FROM') || user;
+  const user = getEnv('SMTP_USER') || mailjetKey;
+  const pass = getEnv('SMTP_PASS') || mailjetSecret;
+  const from =
+    getEnv('SMTP_FROM') ||
+    getEnv('CONTACT_FROM') ||
+    getEnv('NEXT_PUBLIC_CONTACT_EMAIL') ||
+    getEnv('EMAIL');
   const to = getEnv('CONTACT_TO') || 'mkitti19881212@gmail.com';
 
   if (!host || !user || !pass || !from) {
